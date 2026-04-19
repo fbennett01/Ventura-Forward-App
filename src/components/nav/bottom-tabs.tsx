@@ -25,7 +25,7 @@ export function BottomTabs() {
       className="fixed inset-x-0 bottom-0 z-50 pb-[env(safe-area-inset-bottom)] pointer-events-none"
       aria-label="Main navigation"
     >
-      <div className="pointer-events-auto bg-vf-navy/50 backdrop-blur-3xl border-t border-white/5 shadow-vf-premium h-20 flex items-stretch"
+      <div className="pointer-events-auto bg-vf-navy/55 backdrop-blur-[28px] border-t border-vf-sand/10 shadow-vf-premium h-20 flex items-stretch"
       >
 
         {/* Home */}
@@ -74,7 +74,7 @@ export function BottomTabs() {
               href="/report"
               aria-label="Report"
               aria-current={reportActive ? "page" : undefined}
-              className="-translate-y-3 vf-gradient rounded-full w-14 h-14 flex items-center justify-center shadow-lg shadow-vf-orange/30"
+              className="-translate-y-3 vf-gradient rounded-full w-14 h-14 flex items-center justify-center shadow-lg shadow-vf-orange/30 btn-ripple"
               onClick={() => {
                 if (typeof navigator !== "undefined") navigator.vibrate?.(8);
               }}

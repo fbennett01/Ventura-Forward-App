@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import Image from "next/image";
 import "./globals.css";
 
 const inter = Inter({
@@ -34,6 +35,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} dark`}>
       <body className="bg-vf-navy text-vf-sand antialiased font-body texture-grain min-h-screen">
+        <div className="fixed inset-0 z-[-1] pointer-events-none">
+          <Image
+            src="/images/ventura/blue-texture.jpeg"
+            alt=""
+            fill
+            priority
+            className="h-full w-full object-cover opacity-35 mix-blend-soft-light"
+          />
+        </div>
         {children}
       </body>
     </html>
