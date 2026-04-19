@@ -171,14 +171,14 @@ export default function RadarPage() {
                         className="h-7 px-3 rounded-full border border-white/10 text-vf-sand/60 text-xs flex items-center gap-1"
                       >
                         <CalendarPlus className="size-3" />
-                        Add to calendar
+                        Add to Calendar
                       </button>
                       <button
                         onClick={() => toast("We'll remind you 👀")}
                         className="h-7 px-3 rounded-full border border-white/10 text-vf-sand/60 text-xs flex items-center gap-1"
                       >
                         <Bell className="size-3" />
-                        Remind me
+                        Remind Me
                       </button>
                     </div>
                   </div>

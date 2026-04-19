@@ -86,7 +86,7 @@ export default function ReportPage() {
         });
         setCameraError(null);
       } catch {
-        setCameraError("Camera access needed. Please enable in browser settings.");
+        setCameraError("Camera's blocked. Check your browser settings.");
       } finally {
         stream?.getTracks().forEach((track) => track.stop());
       }
@@ -207,7 +207,7 @@ export default function ReportPage() {
       attempts += 1;
     }
 
-    throw new Error(lastError ?? "Photo upload failed");
+    throw new Error(lastError ?? "Couldn't upload the photo. Want to try again?");
   };
 
   const handleSubmit = async ({ description }: ReportPreviewValues) => {
