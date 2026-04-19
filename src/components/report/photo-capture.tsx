@@ -1,3 +1,4 @@
+// TODO: design polish
 import { useId } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,7 +16,6 @@ export function PhotoCapture({ cameraError, onRetry, onFileSelected }: PhotoCapt
   return (
     <Card>
       <CardHeader>
-        {/* TODO: design polish */}
         <CardTitle>Capture photo</CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">

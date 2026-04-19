@@ -1,5 +1,6 @@
 "use client";
 
+// TODO: design polish
 import type { UseFormReturn } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -36,7 +37,6 @@ export function PreviewSubmit({
   return (
     <Card>
       <CardHeader>
-        {/* TODO: design polish */}
         <CardTitle>Preview & submit</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
