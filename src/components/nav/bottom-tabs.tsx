@@ -147,7 +147,7 @@ function TabItem({
           aria-hidden
           className={
             active
-              ? "text-vf-orange drop-shadow-[0_0_6px_rgba(232,93,37,0.8)]"
+              ? "text-vf-orange drop-shadow-[0_0_6px_rgba(160,210,255,0.8)]"
               : "text-vf-sand/40"
           }
         />

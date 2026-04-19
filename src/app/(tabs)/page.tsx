@@ -99,7 +99,7 @@ export default function HomePage() {
   const reduced = useReducedMotion();
 
   return (
-    <div className="min-h-screen bg-vf-navy texture-grain">
+    <div className="min-h-screen bg-vf-navy/55 texture-grain">
       {/* Premium Header */}
       <header className="sticky top-0 z-40 h-16 flex items-center justify-between px-5 bg-vf-navy/60 backdrop-blur-xl border-b border-vf-light shadow-vf-soft">
         <div className="flex flex-row items-center gap-3">

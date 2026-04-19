@@ -25,7 +25,7 @@ export function SuccessState() {
             cx="60"
             cy="60"
             r="54"
-            stroke="#E85D25"
+            stroke="#D7EBFF"
             strokeWidth="4"
             fill="none"
             strokeLinecap="round"
@@ -37,7 +37,7 @@ export function SuccessState() {
           {/* Checkmark */}
           <motion.path
             d="M36 60 L52 76 L84 44"
-            stroke="#E85D25"
+            stroke="#D7EBFF"
             strokeWidth="5"
             fill="none"
             strokeLinecap="round"

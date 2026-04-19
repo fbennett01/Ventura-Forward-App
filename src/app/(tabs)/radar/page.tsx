@@ -8,10 +8,10 @@ import { cn } from '@/lib/utils'
 import { toast } from '@/components/ui/toast'
 
 const PILLAR_COLORS: Record<string, string> = {
-  Safety: '#E85D25',
+  Safety: '#D7EBFF',
   Public: '#2B8A9E',
   Land: '#7FB069',
-  Beautify: '#FF8C5A',
+  Beautify: '#8CC8FF',
   Recreation: '#F0B429',
 }
 
@@ -40,7 +40,7 @@ export default function RadarPage() {
     : mockMeetings.filter(m => activeFilters.includes(m.pillar))
 
   return (
-    <div className="min-h-screen bg-vf-navy">
+    <div className="min-h-screen bg-vf-navy/55">
       {/* Sticky header */}
       <header className="sticky top-0 z-40 h-14 bg-vf-navy/70 backdrop-blur-xl border-b border-white/5 flex items-center px-4 gap-2">
         <div className="w-1 h-5 rounded-full bg-vf-orange flex-shrink-0" />
@@ -77,7 +77,7 @@ export default function RadarPage() {
                       color: PILLAR_COLORS[pillar],
                     }
                   : isActive
-                  ? { background: 'linear-gradient(135deg, #E85D25, #FF8C5A)', borderColor: 'transparent' }
+                    ? { background: 'linear-gradient(135deg, #d7ebff, #8cc8ff)', borderColor: 'transparent', color: '#06203d' }
                   : {}
               }
             >

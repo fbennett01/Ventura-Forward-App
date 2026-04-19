@@ -26,7 +26,7 @@ function ProgressRing({ value, max, size = 48 }: { value: number; max: number; s
         <circle
           cx={size / 2} cy={size / 2} r={radius}
           strokeWidth={3} fill="none"
-          stroke={complete ? '#7FB069' : '#E85D25'}
+          stroke={complete ? '#7FB069' : '#D7EBFF'}
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           strokeLinecap="round"
@@ -48,7 +48,7 @@ export default function RewardsPage() {
   const featured = mockPartners.slice(0, 4)
 
   return (
-    <div className="min-h-screen bg-vf-navy">
+    <div className="min-h-screen bg-vf-navy/55">
       {/* Sticky header */}
       <header className="sticky top-0 z-40 h-14 bg-vf-navy/70 backdrop-blur-xl border-b border-white/5 flex items-center px-4 gap-2">
         <div className="w-1 h-5 rounded-full bg-vf-orange flex-shrink-0" />

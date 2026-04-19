@@ -38,15 +38,15 @@ export function MiniMap({ lat, lng, height = 128 }: MiniMapProps) {
     el.innerHTML = `
       <div style="
         position: absolute; inset: 0; border-radius: 50%;
-        background: #E85D25; border: 2px solid white;
-        box-shadow: 0 0 0 0 rgba(232,93,37,0.4);
+        background: #D7EBFF; border: 2px solid white;
+        box-shadow: 0 0 0 0 rgba(160,210,255,0.45);
         animation: pulse-ring 2s ease-out infinite;
       "></div>
       <style>
         @keyframes pulse-ring {
-          0% { box-shadow: 0 0 0 0 rgba(232,93,37,0.4); }
-          70% { box-shadow: 0 0 0 12px rgba(232,93,37,0); }
-          100% { box-shadow: 0 0 0 0 rgba(232,93,37,0); }
+          0% { box-shadow: 0 0 0 0 rgba(160,210,255,0.45); }
+          70% { box-shadow: 0 0 0 12px rgba(160,210,255,0); }
+          100% { box-shadow: 0 0 0 0 rgba(160,210,255,0); }
         }
       </style>
     `

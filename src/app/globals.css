@@ -23,7 +23,7 @@
     --card-foreground: 39 52% 91%;
     --popover: 210 50% 10%;
     --popover-foreground: 39 52% 91%;
-    --primary: 15 82% 53%;
+    --primary: 208 100% 92%;
     --primary-foreground: 0 0% 100%;
     --secondary: 210 40% 18%;
     --secondary-foreground: 39 52% 91%;
@@ -35,7 +35,7 @@
     --destructive-foreground: 0 0% 100%;
     --border: 210 35% 22%;
     --input: 210 35% 22%;
-    --ring: 15 82% 53%;
+    --ring: 208 100% 88%;
     --radius: 0.75rem;
   }
 
@@ -53,6 +53,17 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     letter-spacing: -0.01em;
+    background-color: #081526;
+    background-image:
+      linear-gradient(180deg, rgba(8, 21, 38, 0.78) 0%, rgba(8, 21, 38, 0.88) 45%, rgba(8, 21, 38, 0.95) 100%),
+      url('/images/ventura/blue-texture.jpeg'),
+      url('/images/ventura/ventura-fade-1.webp'),
+      url('/images/ventura/ventura-fade-2.webp');
+    background-position: center, center, top center, bottom center;
+    background-size: cover, cover, cover, cover;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+    background-attachment: fixed, fixed, fixed, fixed;
+    background-blend-mode: normal, soft-light, screen, screen;
   }
 
   /* Premium heading styles */
@@ -101,7 +112,7 @@
 
   /* Premium gradients */
   .vf-gradient {
-    background: linear-gradient(135deg, #E85D25 0%, #FF8C5A 100%);
+    background: linear-gradient(135deg, #d7ebff 0%, #6fb4ff 100%);
   }
   .vf-gradient-navy {
     background: linear-gradient(180deg, #0A1F2E 0%, #030C14 100%);
