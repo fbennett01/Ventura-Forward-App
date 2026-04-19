@@ -7,8 +7,7 @@ export const mockFeed: FeedItem[] = [
     title: "E-bike safety updates rolling out near Ventura High",
     excerpt:
       "City staff outlined bike lane visibility improvements and rider education plans for spring.",
-    imageUrl:
-      "https://static.wixstatic.com/media/cf922b_44b84b48dcf246c798ad1e77c1c5ad3c~mv2.jpg/v1/fill/w_910,h_910,fp_0.50_0.50,q_90,enc_avif,quality_auto/cf922b_44b84b48dcf246c798ad1e77c1c5ad3c~mv2.jpg",
+    imageUrl: "/images/ventura/feed-1.png",
     date: "2026-04-18T09:00:00.000Z",
     meta: {
       author: "Ventura Forward Team",
@@ -21,8 +20,7 @@ export const mockFeed: FeedItem[] = [
     title: "Fallen trees on Santa Clara cleared after volunteer push",
     excerpt:
       "Weekend cleanup crews removed debris and reopened blocked sidewalk sections.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1520110120835-c96534a4c984?w=800",
+    imageUrl: "/images/ventura/feed-2.png",
     date: "2026-04-17T16:30:00.000Z",
     meta: {
       likes: 812,
@@ -35,8 +33,7 @@ export const mockFeed: FeedItem[] = [
     title: "City Council recap: housing, traffic calming, and parks",
     excerpt:
       "A quick breakdown of the major council votes and what they mean for residents.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800",
+    imageUrl: "/images/ventura/feed-3.png",
     date: "2026-04-16T13:15:00.000Z",
     meta: {
       duration: "28:14",
@@ -49,8 +46,7 @@ export const mockFeed: FeedItem[] = [
     title: "Main Street Moves pilot enters next phase",
     excerpt:
       "Street closure data and local business feedback are being reviewed this week.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1518776657476-0f81f148e66a?w=800",
+    imageUrl: "/images/ventura/feed-4.png",
     date: "2026-04-15T10:20:00.000Z",
     meta: {
       author: "Mobility Desk",
@@ -63,8 +59,7 @@ export const mockFeed: FeedItem[] = [
     title: "Community Q&A on Flock camera rollout",
     excerpt:
       "Residents asked privacy and transparency questions at the civic center forum.",
-    imageUrl:
-      "https://static.wixstatic.com/media/cf922b_d8ab59134cb34b36a09453008c9f12f5~mv2.jpeg/v1/fill/w_608,h_608,fp_0.50_0.50,q_90,enc_avif,quality_auto/cf922b_d8ab59134cb34b36a09453008c9f12f5~mv2.jpeg",
+    imageUrl: "/images/ventura/feed-5.png",
     date: "2026-04-14T19:05:00.000Z",
     meta: {
       likes: 534,
@@ -77,8 +72,7 @@ export const mockFeed: FeedItem[] = [
     title: "Ventura Pier event planning and beach operations",
     excerpt:
       "Organizers discuss cleanup logistics and summer programming around the pier.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1616781295982-f5ce2b4d8d17?w=800",
+    imageUrl: "/images/ventura/feed-6.jpg",
     date: "2026-04-13T11:45:00.000Z",
     meta: {
       duration: "19:42",
@@ -91,7 +85,7 @@ export const mockFeed: FeedItem[] = [
     title: "Neighborhood beautification grants open for applications",
     excerpt:
       "Small project grants are now available for block-level cleanup and mural prep.",
-    imageUrl: "https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800",
+    imageUrl: "/images/ventura/feed-7.png",
     date: "2026-04-12T08:30:00.000Z",
     meta: {
       author: "Civic Programs",
@@ -104,7 +98,7 @@ export const mockFeed: FeedItem[] = [
     title: "Weekend recap: kids rec clinics at seaside parks",
     excerpt:
       "Families turned out for open-play clinics and volunteer coaching sessions.",
-    imageUrl: "https://images.unsplash.com/photo-1542384758-a5b066f27ff1800",
+    imageUrl: "/images/ventura/feed-8.webp",
     date: "2026-04-11T21:10:00.000Z",
     meta: {
       likes: 677,
