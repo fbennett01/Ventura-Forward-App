@@ -32,6 +32,7 @@ const config: Config = {
         "vf-navy-100": "#152238",
         "vf-sand": "#EDE8DC",
         "vf-orange": "#E85D25",
+        "vf-sea": "#2E9CAF",
       },
       fontFamily: {
         display: ["Inter", "system-ui", "sans-serif"],

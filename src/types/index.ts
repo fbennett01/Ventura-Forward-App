@@ -1,3 +1,7 @@
+import type { LucideIcon } from 'lucide-react'
+
+export type { LucideIcon }
+
 export type FeedItemType = "blog" | "podcast" | "instagram";
 
 export interface FeedItem {

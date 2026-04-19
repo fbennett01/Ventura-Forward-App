@@ -286,7 +286,7 @@ export default function ReportPage() {
       {step === "preview" && previewUrl ? (
         <div className="space-y-4">
           {latitude !== null && longitude !== null ? (
-            <MiniMap latitude={latitude} longitude={longitude} />
+            <MiniMap lat={latitude} lng={longitude} />
           ) : null}
 
           {!locationUnavailable && (latitude === null || longitude === null) ? (
