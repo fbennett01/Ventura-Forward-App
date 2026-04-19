@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { Leaf, QrCode, MapPin, Check, Plus, Gift } from 'lucide-react'
 import { mockPartners } from '@/data/mock-partners'
 import { Sheet, SheetContent } from '@/components/ui/sheet'
@@ -48,17 +49,26 @@ export default function RewardsPage() {
   const featured = mockPartners.slice(0, 4)
 
   return (
-    <div className="min-h-screen bg-vf-navy/55">
+    <div className="flex flex-col min-h-screen pb-16">
       {/* Sticky header */}
-      <header className="sticky top-0 z-40 h-14 bg-vf-navy/70 backdrop-blur-xl border-b border-white/5 flex items-center px-4 gap-2">
-        <div className="w-1 h-5 rounded-full bg-vf-orange flex-shrink-0" />
-        <span className="font-display font-bold text-sm tracking-widest text-vf-sand uppercase flex-1">
-          Rewards
-        </span>
+      <header className="sticky top-0 z-40 h-16 bg-vf-navy/60 backdrop-blur-2xl border-b border-border/5 flex items-center justify-between px-5">
+        <div className="flex flex-row items-center gap-3">
+          <Image 
+            src="/images/ventura/logo-white.png" 
+            alt="Ventura Forward Logo" 
+            width={24} 
+            height={24} 
+            className="object-contain h-6 w-auto mix-blend-plus-lighter opacity-90 drop-shadow-[0_0_12px_rgba(215,235,255,0.4)]"
+          />
+          <span className="font-poppins font-black text-sm tracking-widest text-white uppercase drop-shadow-sm">
+            Rewards
+          </span>
+        </div>
+        <Leaf className="size-4 text-vf-orange drop-shadow-[0_0_12px_rgba(215,235,255,0.4)]" />
       </header>
 
       {/* Balance hero card */}
-      <div className="mx-4 mt-4 rounded-3xl p-6 vf-gradient relative overflow-hidden">
+      <div className="mx-5 mt-5 rounded-3xl p-6 relative overflow-hidden bg-vf-navy-100/50 backdrop-blur-xl border border-white/5 shadow-vf-medium hover:shadow-vf-premium transition-all duration-300">
         {/* Grain overlay */}
         <div className="texture-grain absolute inset-0 pointer-events-none" />
 
@@ -84,9 +94,9 @@ export default function RewardsPage() {
         {/* Scan button */}
         <button
           onClick={() => setScanOpen(true)}
-          className="absolute bottom-4 right-4 bg-white text-vf-orange rounded-full px-4 py-2 text-sm font-bold flex items-center gap-1.5"
+          className="btn-ripple absolute bottom-4 right-4 bg-white text-vf-navy rounded-full px-4 py-2 text-sm font-bold flex items-center gap-1.5 shadow-md shadow-white/20 hover:scale-105 active:scale-95 transition-all"
         >
-          <QrCode className="size-4" />
+          <QrCode className="size-4 text-vf-navy" />
           Scan to Earn
         </button>
       </div>
@@ -103,7 +113,7 @@ export default function RewardsPage() {
             </p>
             <Button
               onClick={() => setScanOpen(false)}
-              className="vf-gradient text-white rounded-full px-8 mt-2"
+              className="btn-ripple relative vf-gradient text-vf-navy font-bold rounded-full px-8 mt-2 active:scale-95 transition-all shadow-md hover:shadow-lg shadow-vf-orange/30"
             >
               Got it
             </Button>

@@ -22,10 +22,10 @@ export function BottomTabs() {
 
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-50 pb-[env(safe-area-inset-bottom)]"
+      className="fixed inset-x-0 bottom-0 z-50 pb-[env(safe-area-inset-bottom)] pointer-events-none"
       aria-label="Main navigation"
     >
-      <div className="bg-vf-navy/70 backdrop-blur-2xl border-t border-vf-light shadow-vf-premium h-[4.5rem] flex items-stretch"
+      <div className="pointer-events-auto bg-vf-navy/50 backdrop-blur-3xl border-t border-white/5 shadow-vf-premium h-20 flex items-stretch"
       >
 
         {/* Home */}
@@ -140,7 +140,7 @@ function TabItem({
       <Link
         href={href}
         aria-current={active ? "page" : undefined}
-        className="flex flex-col items-center justify-center h-full w-full"
+        className="flex flex-col items-center justify-center h-full w-full rounded-2xl btn-ripple"
       >
         <Icon
           size={20}

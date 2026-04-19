@@ -99,37 +99,40 @@ export default function HomePage() {
   const reduced = useReducedMotion();
 
   return (
-    <div className="min-h-screen bg-vf-navy/55 texture-grain">
+    <div className="flex flex-col min-h-screen pb-16">
       {/* Premium Header */}
-      <header className="sticky top-0 z-40 h-16 flex items-center justify-between px-5 bg-vf-navy/60 backdrop-blur-xl border-b border-vf-light shadow-vf-soft">
+      <header className="sticky top-0 z-40 h-16 flex items-center justify-between px-5 bg-vf-navy/60 backdrop-blur-2xl border-b border-border/5 shadow-sm">
         <div className="flex flex-row items-center gap-3">
-          <div className="w-1.5 h-6 rounded-full bg-gradient-to-b from-vf-orange to-vf-orange/60" />
-          <span className="font-poppins font-black text-sm tracking-widest text-vf-sand drop-shadow-sm">
-            VENTURA FORWARD
-          </span>
+          <Image 
+            src="/images/ventura/logo-white.png" 
+            alt="Ventura Forward Logo" 
+            width={120} 
+            height={40} 
+            className="object-contain h-8 w-auto mix-blend-plus-lighter opacity-90 drop-shadow-[0_0_12px_rgba(215,235,255,0.4)]"
+          />
         </div>
-        <span className="text-xs text-vf-sand/50 font-light tracking-wide">Share the Stoke</span>
+        <span className="text-[10px] text-white/50 font-semibold tracking-widest uppercase">Share the Stoke</span>
       </header>
 
       {/* Hero Section */}
-      <div className="relative px-5 py-12 text-center border-b border-vf-light/20">
+      <div className="relative px-5 py-10 text-center border-b border-border/5 bg-gradient-to-b from-vf-navy-100/10 to-transparent">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="space-y-3 max-w-2xl mx-auto"
+          className="space-y-4 max-w-xl mx-auto"
         >
-          <h1 className="text-4xl sm:text-5xl font-poppins font-bold text-vf-sand tracking-tight">
+          <h1 className="text-4xl sm:text-5xl font-poppins font-extrabold text-white tracking-tight">
             Stay Connected
           </h1>
-          <p className="text-vf-sand/70 text-lg leading-relaxed">
-            Discover inspiring stories, podcasts, and moments from our community
+          <p className="text-vf-sand/80 text-base leading-relaxed max-w-sm mx-auto">
+            Discover inspiring stories, podcasts, and moments that keep our city moving forward.
           </p>
         </motion.div>
       </div>
 
       {/* Content Grid */}
-      <div className="pt-8 pb-32 px-5 space-y-6">
+      <div className="pt-6 px-5 space-y-6">
         {mockFeed.map((item, index) => (
           <motion.div
             key={item.id}

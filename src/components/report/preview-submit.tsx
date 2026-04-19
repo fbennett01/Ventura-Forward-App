@@ -35,11 +35,18 @@ export function PreviewSubmit({
   const descriptionLength = form.watch('description')?.length ?? 0
 
   return (
-    <div className="min-h-screen bg-vf-navy flex flex-col">
+    <div className="flex flex-col min-h-screen bg-vf-navy/70 backdrop-blur-md">
+      {/* Sticky header */}
+      <header className="sticky top-0 z-40 h-16 border-b border-border/5 flex items-center justify-center px-5">
+        <span className="font-poppins font-black text-sm tracking-widest text-white uppercase drop-shadow-sm">
+          Review Report
+        </span>
+      </header>
+
       {/* Scrollable content */}
-      <div className="flex-1 overflow-y-auto pb-28">
+      <div className="flex-1 overflow-y-auto pb-32">
         {/* Photo */}
-        <div className="mx-4 mt-4 rounded-2xl overflow-hidden">
+        <div className="mx-5 mt-5 rounded-3xl overflow-hidden shadow-vf-medium border border-white/5">
           <img
             src={imageUrl}
             alt="Report preview"
@@ -49,22 +56,22 @@ export function PreviewSubmit({
         </div>
 
         {/* Location row */}
-        <div className="mx-4 mt-3">
+        <div className="mx-5 mt-4">
           {!locationUnavailable ? (
-            <div className="flex items-center gap-2">
-              <MapPin className="size-4 text-vf-sea" />
-              <span className="text-xs text-vf-sea">Located</span>
+            <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-vf-navy-100/50 border border-white/5 w-max">
+              <MapPin className="size-4 text-vf-sea drop-shadow-sm" />
+              <span className="text-xs font-semibold text-white tracking-wide">Location Added</span>
             </div>
           ) : (
-            <div className="flex items-center gap-2">
-              <MapPinOff className="size-4 text-vf-sand/30" />
-              <span className="text-xs text-vf-sand/40">Location&apos;s off — you can still submit without it.</span>
+            <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-vf-navy-100/30 border border-white/5 max-w-sm">
+              <MapPinOff className="size-4 text-vf-sand/40" />
+              <span className="text-[11px] font-medium text-vf-sand/60 leading-tight">Location unavailable — you can still submit.</span>
             </div>
           )}
         </div>
 
         {/* Description */}
-        <div className="mx-4 mt-4">
+        <div className="mx-5 mt-5">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
               <FormField
@@ -78,7 +85,7 @@ export function PreviewSubmit({
                         value={field.value ?? ''}
                         placeholder="Add context (optional)"
                         maxLength={500}
-                        className="bg-vf-navy-100 border-white/5 resize-none text-vf-sand placeholder:text-vf-sand/30 rounded-xl"
+                        className="bg-vf-navy-100/50 border-white/10 resize-none text-white placeholder:text-vf-sand/40 rounded-2xl p-4 focus-visible:ring-vf-orange/50 transition-all font-body shadow-inner"
                         rows={3}
                       />
                     </FormControl>
@@ -86,10 +93,12 @@ export function PreviewSubmit({
                   </FormItem>
                 )}
               />
-              <p className="text-right text-xs text-vf-sand/30 mt-1">{descriptionLength}/500</p>
+              <p className="text-right text-[10px] font-semibold text-vf-sand/40 mt-1">{descriptionLength}/500</p>
 
               {submitError && (
-                <div className="text-sm text-vf-orange">{submitError}</div>
+                <div className="text-sm font-medium text-vf-orange drop-shadow-sm bg-red-950/30 border border-red-500/20 px-4 py-3 rounded-xl">
+                  {submitError}
+                </div>
               )}
             </form>
           </Form>
@@ -97,11 +106,11 @@ export function PreviewSubmit({
       </div>
 
       {/* Fixed bottom */}
-      <div className="fixed bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-vf-navy via-vf-navy to-transparent">
+      <div className="fixed bottom-0 left-0 right-0 px-5 pb-8 pt-4 bg-gradient-to-t from-vf-navy/95 via-vf-navy/80 to-transparent backdrop-blur-sm">
         <button
           onClick={() => form.handleSubmit(onSubmit)()}
           disabled={isSubmitting}
-          className="w-full h-14 rounded-full bg-gradient-to-r from-vf-orange to-vf-orange/80 font-display font-bold text-white text-base flex items-center justify-center gap-2 hover:from-vf-orange/90 hover:to-vf-orange/70 disabled:opacity-50 transition-all"
+          className="btn-ripple relative overflow-hidden w-full h-14 rounded-full bg-gradient-to-r from-vf-orange to-blue-400 font-poppins font-bold text-vf-navy text-lg flex items-center justify-center gap-2 hover:from-blue-300 hover:to-blue-500 disabled:opacity-50 transition-all shadow-vf-medium hover:shadow-vf-premium"
         >
           {isSubmitting ? (
             <Loader2 className="size-5 animate-spin" />
@@ -113,14 +122,14 @@ export function PreviewSubmit({
           )}
         </button>
 
-        <div className="flex gap-3 mt-2 justify-center">
+        <div className="flex gap-4 mt-4 justify-center">
           <Button
             type="button"
             variant="ghost"
             size="sm"
             onClick={onRetake}
             disabled={isSubmitting}
-            className="text-xs text-vf-sand/50 hover:text-vf-sand hover:bg-vf-navy-100"
+            className="text-xs font-semibold text-vf-sand/60 hover:text-white hover:bg-vf-navy-100/50 rounded-full px-4"
           >
             Retake Photo
           </Button>
@@ -130,7 +139,7 @@ export function PreviewSubmit({
             size="sm"
             onClick={onChangeCategory}
             disabled={isSubmitting}
-            className="text-xs text-vf-sand/50 hover:text-vf-sand hover:bg-vf-navy-100"
+            className="text-xs font-semibold text-vf-sand/60 hover:text-white hover:bg-vf-navy-100/50 rounded-full px-4"
           >
             Change Category
           </Button>

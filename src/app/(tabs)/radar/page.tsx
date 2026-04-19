@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Radio, MapPin, CalendarPlus, Bell } from 'lucide-react'
 import { mockMeetings } from '@/data/mock-meetings'
@@ -40,23 +41,31 @@ export default function RadarPage() {
     : mockMeetings.filter(m => activeFilters.includes(m.pillar))
 
   return (
-    <div className="min-h-screen bg-vf-navy/55">
+    <div className="flex flex-col min-h-screen pb-16">
       {/* Sticky header */}
-      <header className="sticky top-0 z-40 h-14 bg-vf-navy/70 backdrop-blur-xl border-b border-white/5 flex items-center px-4 gap-2">
-        <div className="w-1 h-5 rounded-full bg-vf-orange flex-shrink-0" />
-        <span className="font-display font-bold text-sm tracking-widest text-vf-sand uppercase flex-1">
-          Civic Radar
-        </span>
+      <header className="sticky top-0 z-40 h-16 bg-vf-navy/60 backdrop-blur-2xl border-b border-border/5 flex items-center justify-between px-5">
+        <div className="flex flex-row items-center gap-3">
+          <Image 
+            src="/images/ventura/logo-white.png" 
+            alt="Ventura Forward Logo" 
+            width={24} 
+            height={24} 
+            className="object-contain h-6 w-auto mix-blend-plus-lighter opacity-90 drop-shadow-[0_0_12px_rgba(215,235,255,0.4)]"
+          />
+          <span className="font-poppins font-black text-sm tracking-widest text-white uppercase drop-shadow-sm">
+            Civic Radar
+          </span>
+        </div>
         <motion.div
           animate={{ opacity: [1, 0.4, 1] }}
           transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
         >
-          <Radio className="size-4 text-vf-orange" />
+          <Radio className="size-4 text-vf-orange drop-shadow-[0_0_6px_rgba(215,235,255,0.4)]" />
         </motion.div>
       </header>
 
       {/* Filter chips */}
-      <div className="flex gap-2 px-4 py-3 overflow-x-auto scrollbar-hide">
+      <div className="flex gap-2.5 px-5 py-4 overflow-x-auto scrollbar-hide border-b border-border/5 bg-vf-navy-100/10">
         {ALL_PILLARS.map(pillar => {
           const isActive = activeFilters.includes(pillar)
           return (

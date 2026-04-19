@@ -4,8 +4,8 @@ import { BottomTabs } from "@/components/nav/bottom-tabs";
 
 export default function TabsLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-vf-navy/70 texture-grain pb-20">
-      <main className="mx-auto w-full max-w-4xl px-4 py-6 sm:py-8">
+    <div className="relative flex flex-col min-h-screen pb-20">
+      <main className="flex-1 w-full mx-auto max-w-md sm:max-w-lg lg:max-w-2xl">
         {children}
       </main>
       <InstallPrompt />

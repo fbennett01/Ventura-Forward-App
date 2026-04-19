@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 import {
   Trash2,
@@ -36,13 +37,29 @@ export function CategoryGrid({ onSelect }: CategoryGridProps) {
   const reduced = useReducedMotion()
 
   return (
-    <div className="min-h-screen bg-vf-navy flex flex-col">
-      <div className="px-6 pt-10 pb-6">
-        <h1 className="font-display font-extrabold text-3xl text-vf-sand">What did you spot?</h1>
-        <p className="text-sm text-vf-sand/50 mt-1">Tap a category to start</p>
+    <div className="flex flex-col min-h-screen pb-24">
+      {/* Sticky header */}
+      <header className="sticky top-0 z-40 h-16 bg-vf-navy/60 backdrop-blur-2xl border-b border-border/5 flex items-center justify-between px-5">
+        <div className="flex flex-row items-center gap-3">
+          <Image 
+            src="/images/ventura/logo-white.png" 
+            alt="Ventura Forward Logo" 
+            width={24} 
+            height={24} 
+            className="object-contain h-6 w-auto mix-blend-plus-lighter opacity-90 drop-shadow-[0_0_12px_rgba(215,235,255,0.4)]"
+          />
+          <span className="font-poppins font-black text-sm tracking-widest text-white uppercase drop-shadow-sm">
+            Report Issue
+          </span>
+        </div>
+      </header>
+
+      <div className="px-6 pt-8 pb-6">
+        <h1 className="font-poppins font-extrabold text-3xl text-white">What did you spot?</h1>
+        <p className="text-base text-vf-sand/60 mt-2 font-medium">Tap a category to get started.</p>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 px-6 flex-1">
+      <div className="grid grid-cols-2 gap-4 px-6 flex-1 content-start">
         {categories.map((category, index) => {
           const Icon = CATEGORY_ICONS[category.value]
           return (
@@ -58,10 +75,12 @@ export function CategoryGrid({ onSelect }: CategoryGridProps) {
                   navigator.vibrate?.(10)
                   onSelect(category.value)
                 }}
-                className="w-full aspect-square rounded-2xl bg-vf-navy-100 border border-white/5 flex flex-col items-center justify-center gap-3 active:bg-vf-navy-50 transition-colors"
+                className="btn-ripple relative w-full aspect-square rounded-3xl bg-vf-navy-100/40 backdrop-blur-md border border-white/5 shadow-vf-soft flex flex-col items-center justify-center gap-4 hover:bg-vf-navy-100/60 hover:shadow-vf-medium transition-all group"
               >
-                <Icon className="size-8 text-vf-orange" />
-                <span className="font-semibold text-base text-vf-sand capitalize">{category.value}</span>
+                <div className="w-14 h-14 rounded-2xl bg-vf-orange/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Icon className="size-7 text-vf-orange drop-shadow-sm" />
+                </div>
+                <span className="font-poppins font-semibold text-lg text-vf-sand capitalize tracking-tight">{category.value}</span>
               </button>
             </motion.div>
           )
