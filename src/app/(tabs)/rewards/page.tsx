@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import { motion, useReducedMotion } from 'framer-motion'
 import { Leaf, QrCode, MapPin, Check, Plus, Gift } from 'lucide-react'
 import { mockPartners } from '@/data/mock-partners'
 import { Sheet, SheetContent } from '@/components/ui/sheet'
@@ -9,7 +10,8 @@ import { Button } from '@/components/ui/button'
 
 const BALANCE = 47
 
-function ProgressRing({ value, max, size = 48 }: { value: number; max: number; size?: number }) {
+function ProgressRing({ value, max }: { value: number; max: number }) {
+  const size = 48
   const radius = (size - 6) / 2
   const circumference = 2 * Math.PI * radius
   const progress = Math.min(value / max, 1)
@@ -17,7 +19,7 @@ function ProgressRing({ value, max, size = 48 }: { value: number; max: number; s
   const complete = value >= max
 
   return (
-    <div className="relative flex-shrink-0" style={{ width: size, height: size }}>
+    <div className="relative flex-shrink-0 size-12">
       <svg width={size} height={size} className="-rotate-90">
         <circle
           cx={size / 2} cy={size / 2} r={radius}
@@ -31,7 +33,7 @@ function ProgressRing({ value, max, size = 48 }: { value: number; max: number; s
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           strokeLinecap="round"
-          style={{ transition: 'stroke-dashoffset 0.6s ease' }}
+          className="transition-[stroke-dashoffset] duration-700 ease-out"
         />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
@@ -46,7 +48,29 @@ function ProgressRing({ value, max, size = 48 }: { value: number; max: number; s
 
 export default function RewardsPage() {
   const [scanOpen, setScanOpen] = useState(false)
+  const prefersReduced = useReducedMotion()
   const featured = mockPartners.slice(0, 4)
+  const listVariants = prefersReduced
+    ? undefined
+    : {
+        hidden: { opacity: 0 },
+        show: {
+          opacity: 1,
+          transition: { staggerChildren: 0.05, delayChildren: 0.03 },
+        },
+      }
+
+  const itemVariants = prefersReduced
+    ? undefined
+    : {
+        hidden: { opacity: 0, y: 12, scale: 0.99 },
+        show: {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          transition: { type: 'spring' as const, stiffness: 290, damping: 30, mass: 0.82 },
+        },
+      }
 
   return (
     <div className="flex flex-col min-h-screen pb-16">
@@ -68,7 +92,12 @@ export default function RewardsPage() {
       </header>
 
       {/* Balance hero card */}
-      <div className="mx-5 mt-5 rounded-3xl p-6 relative overflow-hidden bg-vf-navy-100/50 backdrop-blur-xl border border-white/5 shadow-vf-medium hover:shadow-vf-premium transition-all duration-300">
+      <motion.div
+        className="mx-5 mt-5 rounded-3xl p-6 relative overflow-hidden bg-vf-navy-100/50 backdrop-blur-xl border border-white/5 shadow-vf-medium hover:shadow-vf-premium transition-all duration-300"
+        initial={prefersReduced ? false : { opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: prefersReduced ? 0 : 0.34, ease: [0.16, 1, 0.3, 1] }}
+      >
         {/* Grain overlay */}
         <div className="texture-grain absolute inset-0 pointer-events-none" />
 
@@ -99,7 +128,7 @@ export default function RewardsPage() {
           <QrCode className="size-4 text-vf-navy" />
           Scan to Earn
         </button>
-      </div>
+      </motion.div>
 
       {/* Scan Sheet */}
       <Sheet open={scanOpen} onOpenChange={setScanOpen}>
@@ -125,11 +154,18 @@ export default function RewardsPage() {
       <p className="px-4 mt-6 mb-3 text-xs tracking-widest text-vf-sand/40 uppercase font-semibold">
         Featured Stops
       </p>
-      <div className="flex gap-3 px-4 overflow-x-auto scrollbar-hide pb-2">
+      <motion.div
+        className="flex gap-3 px-4 overflow-x-auto scrollbar-hide pb-2"
+        variants={listVariants}
+        initial={prefersReduced ? false : 'hidden'}
+        animate={prefersReduced ? undefined : 'show'}
+      >
         {featured.map((partner) => (
-          <div
+          <motion.div
             key={partner.id}
             className="flex-shrink-0 w-36 rounded-2xl bg-vf-navy-100 border border-white/5 p-3"
+            variants={itemVariants}
+            whileTap={prefersReduced ? undefined : { scale: 0.985 }}
           >
             <div className="w-12 h-12 rounded-xl bg-vf-sand/10 flex items-center justify-center mb-2">
               <span className="font-display font-bold text-xl text-vf-sand/50">
@@ -144,19 +180,26 @@ export default function RewardsPage() {
               <Leaf className="size-3" />
               {partner.pointsCost} pts
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* All partners */}
       <p className="px-4 mt-6 mb-3 text-xs tracking-widest text-vf-sand/40 uppercase font-semibold">
         All Partners
       </p>
-      <div className="space-y-2 px-4 pb-28">
+      <motion.div
+        className="space-y-2 px-4 pb-28"
+        variants={listVariants}
+        initial={prefersReduced ? false : 'hidden'}
+        animate={prefersReduced ? undefined : 'show'}
+      >
         {mockPartners.map((partner) => (
-          <div
+          <motion.div
             key={partner.id}
             className="rounded-2xl bg-vf-navy-100 border border-white/5 p-3 flex gap-3 items-center"
+            variants={itemVariants}
+            whileTap={prefersReduced ? undefined : { scale: 0.99 }}
           >
             <div className="w-14 h-14 rounded-xl bg-vf-sand/10 flex items-center justify-center flex-shrink-0">
               <span className="font-display font-bold text-xl text-vf-sand/50">
@@ -172,37 +215,42 @@ export default function RewardsPage() {
               <p className="text-sm text-vf-sand/70 line-clamp-1 mt-0.5">{partner.perk}</p>
             </div>
             <ProgressRing value={BALANCE} max={partner.pointsCost} />
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Recent activity */}
       <p className="px-4 mt-6 mb-3 text-xs tracking-widest text-vf-sand/40 uppercase font-semibold">
         Recent Activity
       </p>
-      <div className="space-y-2 px-4 mb-4">
-        <div className="flex items-center gap-3 rounded-xl bg-vf-navy-100 border border-white/5 px-4 py-3">
+      <motion.div
+        className="space-y-2 px-4 mb-4"
+        variants={listVariants}
+        initial={prefersReduced ? false : 'hidden'}
+        animate={prefersReduced ? undefined : 'show'}
+      >
+        <motion.div className="flex items-center gap-3 rounded-xl bg-vf-navy-100 border border-white/5 px-4 py-3" variants={itemVariants}>
           <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-vf-orange/15">
             <Plus className="size-4 text-vf-orange" />
           </div>
           <span className="flex-1 text-sm text-vf-sand font-medium">+5 pts at Cafe Zack</span>
           <span className="text-xs text-vf-sand/40">2d ago</span>
-        </div>
-        <div className="flex items-center gap-3 rounded-xl bg-vf-navy-100 border border-white/5 px-4 py-3">
+        </motion.div>
+        <motion.div className="flex items-center gap-3 rounded-xl bg-vf-navy-100 border border-white/5 px-4 py-3" variants={itemVariants}>
           <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-vf-orange/15">
             <Plus className="size-4 text-vf-orange" />
           </div>
           <span className="flex-1 text-sm text-vf-sand font-medium">+3 pts at Pizza Chief</span>
           <span className="text-xs text-vf-sand/40">5d ago</span>
-        </div>
-        <div className="flex items-center gap-3 rounded-xl bg-vf-navy-100 border border-white/5 px-4 py-3">
+        </motion.div>
+        <motion.div className="flex items-center gap-3 rounded-xl bg-vf-navy-100 border border-white/5 px-4 py-3" variants={itemVariants}>
           <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-vf-sea/15">
             <Gift className="size-4 text-vf-sea" />
           </div>
           <span className="flex-1 text-sm text-vf-sand font-medium">Free coffee at Pete&apos;s</span>
           <span className="text-xs text-vf-sand/40">1w ago</span>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </div>
   )
 }

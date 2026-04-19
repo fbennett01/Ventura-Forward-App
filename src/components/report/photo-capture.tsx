@@ -1,15 +1,14 @@
 import { useId } from "react";
-import { Camera, ImagePlus } from "lucide-react";
+import { Camera } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface PhotoCaptureProps {
   cameraError: string | null;
   onRetry: () => void;
   onFileSelected: (file: File) => void;
-  onCancel?: () => void;
 }
 
-export function PhotoCapture({ cameraError, onRetry, onFileSelected, onCancel }: PhotoCaptureProps) {
+export function PhotoCapture({ cameraError, onRetry, onFileSelected }: PhotoCaptureProps) {
   const inputId = useId();
 
   return (

@@ -7,17 +7,6 @@ const withPWA = withPWAInit({
 	workboxOptions: {
 		runtimeCaching: [
 			{
-				urlPattern: /^https:\/\/images\.unsplash\.com\/.*$/i,
-				handler: "StaleWhileRevalidate",
-				options: {
-					cacheName: "unsplash-images",
-					expiration: {
-						maxEntries: 32,
-						maxAgeSeconds: 60 * 60 * 24 * 7,
-					},
-				},
-			},
-			{
 				urlPattern: /\/api\/reports$/i,
 				handler: "NetworkOnly",
 			},

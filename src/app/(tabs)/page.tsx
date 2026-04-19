@@ -97,6 +97,27 @@ function FeedCard({ item }: { item: FeedItem }) {
 
 export default function HomePage() {
   const reduced = useReducedMotion();
+  const listVariants = reduced
+    ? undefined
+    : {
+        hidden: { opacity: 0 },
+        show: {
+          opacity: 1,
+          transition: { staggerChildren: 0.06, delayChildren: 0.06 },
+        },
+      };
+
+  const itemVariants = reduced
+    ? undefined
+    : {
+        hidden: { opacity: 0, y: 16, scale: 0.985 },
+        show: {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          transition: { type: 'spring' as const, stiffness: 280, damping: 28, mass: 0.8 },
+        },
+      };
 
   return (
     <div className="flex flex-col min-h-screen pb-16">
@@ -115,11 +136,13 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <div className="relative px-5 py-10 text-center border-b border-border/5 bg-gradient-to-b from-vf-navy-100/10 to-transparent">
+      <motion.div
+        className="relative px-5 py-10 text-center border-b border-border/5 bg-gradient-to-b from-vf-navy-100/10 to-transparent"
+        initial={reduced ? false : { opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: reduced ? 0 : 0.36, ease: [0.16, 1, 0.3, 1] }}
+      >
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
           className="space-y-4 max-w-xl mx-auto"
         >
           <h1 className="text-4xl sm:text-5xl font-poppins font-extrabold text-white tracking-tight">
@@ -129,25 +152,25 @@ export default function HomePage() {
             Discover inspiring stories, podcasts, and moments that keep our city moving forward.
           </p>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Content Grid */}
-      <div className="pt-6 px-5 space-y-6">
+      <motion.div
+        className="pt-6 px-5 space-y-6"
+        variants={listVariants}
+        initial={reduced ? false : 'hidden'}
+        animate={reduced ? undefined : 'show'}
+      >
         {mockFeed.map((item, index) => (
           <motion.div
             key={item.id}
-            {...(reduced
-              ? {}
-              : {
-                  initial: { opacity: 0, y: 20 },
-                  animate: { opacity: 1, y: 0 },
-                  transition: { delay: index * 0.08, duration: 0.4, ease: 'easeOut' },
-                })}
+            variants={itemVariants}
+            transition={reduced ? undefined : { delay: index === 0 ? 0 : 0 }}
           >
             <FeedCard item={item} />
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }

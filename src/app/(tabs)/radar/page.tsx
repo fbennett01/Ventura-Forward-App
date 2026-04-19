@@ -16,11 +16,60 @@ const PILLAR_COLORS: Record<string, string> = {
   Recreation: '#F0B429',
 }
 
+const PILLAR_THEME: Record<string, { rail: string; badge: string; chip: string }> = {
+  Safety: {
+    rail: 'bg-[#D7EBFF]',
+    badge: 'text-[#D7EBFF] border-[#D7EBFF]/30 bg-[#D7EBFF]/12',
+    chip: 'bg-[#D7EBFF]/20 border-[#D7EBFF]/40 text-[#D7EBFF]',
+  },
+  Public: {
+    rail: 'bg-[#2B8A9E]',
+    badge: 'text-[#2B8A9E] border-[#2B8A9E]/30 bg-[#2B8A9E]/12',
+    chip: 'bg-[#2B8A9E]/20 border-[#2B8A9E]/40 text-[#2B8A9E]',
+  },
+  Land: {
+    rail: 'bg-[#7FB069]',
+    badge: 'text-[#7FB069] border-[#7FB069]/30 bg-[#7FB069]/12',
+    chip: 'bg-[#7FB069]/20 border-[#7FB069]/40 text-[#7FB069]',
+  },
+  Beautify: {
+    rail: 'bg-[#8CC8FF]',
+    badge: 'text-[#8CC8FF] border-[#8CC8FF]/30 bg-[#8CC8FF]/12',
+    chip: 'bg-[#8CC8FF]/20 border-[#8CC8FF]/40 text-[#8CC8FF]',
+  },
+  Recreation: {
+    rail: 'bg-[#F0B429]',
+    badge: 'text-[#F0B429] border-[#F0B429]/30 bg-[#F0B429]/12',
+    chip: 'bg-[#F0B429]/20 border-[#F0B429]/40 text-[#F0B429]',
+  },
+}
+
 const ALL_PILLARS = ['All', ...Object.keys(PILLAR_COLORS)]
 
 export default function RadarPage() {
   const [activeFilters, setActiveFilters] = useState<string[]>(['All'])
   const prefersReduced = useReducedMotion()
+  const listVariants = prefersReduced
+    ? undefined
+    : {
+        hidden: { opacity: 0 },
+        show: {
+          opacity: 1,
+          transition: { staggerChildren: 0.05, delayChildren: 0.04 },
+        },
+      }
+
+  const cardVariants = prefersReduced
+    ? undefined
+    : {
+        hidden: { opacity: 0, y: 14, scale: 0.99 },
+        show: {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          transition: { type: 'spring' as const, stiffness: 290, damping: 30, mass: 0.8 },
+        },
+      }
 
   function toggleFilter(pillar: string) {
     if (pillar === 'All') {
@@ -69,29 +118,23 @@ export default function RadarPage() {
         {ALL_PILLARS.map(pillar => {
           const isActive = activeFilters.includes(pillar)
           return (
-            <button
+            <motion.button
               key={pillar}
               onClick={() => toggleFilter(pillar)}
               className={cn(
-                'rounded-full px-4 py-1.5 text-sm font-medium whitespace-nowrap border transition-colors',
+                'rounded-full px-4 py-1.5 text-sm font-medium whitespace-nowrap border transition-colors btn-ripple',
                 isActive
                   ? 'text-white border-transparent'
-                  : 'bg-vf-navy-100 text-vf-sand/60 border-white/5'
+                  : 'bg-vf-navy-100 text-vf-sand/60 border-white/5',
+                isActive && pillar !== 'All' ? PILLAR_THEME[pillar].chip : '',
+                isActive && pillar === 'All'
+                  ? 'bg-gradient-to-br from-[#d7ebff] to-[#8cc8ff] border-transparent text-[#06203d]'
+                  : ''
               )}
-              style={
-                isActive && pillar !== 'All'
-                  ? {
-                      backgroundColor: PILLAR_COLORS[pillar] + '33',
-                      borderColor: PILLAR_COLORS[pillar] + '66',
-                      color: PILLAR_COLORS[pillar],
-                    }
-                  : isActive
-                    ? { background: 'linear-gradient(135deg, #d7ebff, #8cc8ff)', borderColor: 'transparent', color: '#06203d' }
-                  : {}
-              }
+              whileTap={prefersReduced ? undefined : { scale: 0.96 }}
             >
               {pillar}
-            </button>
+            </motion.button>
           )
         })}
       </div>
@@ -104,8 +147,13 @@ export default function RadarPage() {
           <p className="text-sm text-vf-sand/30">Try a different filter</p>
         </div>
       ) : (
-        <div className="space-y-3 px-4 pb-28">
-          {filtered.map((meeting, index) => {
+        <motion.div
+          className="space-y-3 px-4 pb-28"
+          variants={listVariants}
+          initial={prefersReduced ? false : 'hidden'}
+          animate={prefersReduced ? undefined : 'show'}
+        >
+          {filtered.map((meeting) => {
             const date = new Date(meeting.datetime)
             const weekday = date.toLocaleDateString('en-US', { weekday: 'short' })
             const day = date.getDate()
@@ -114,16 +162,12 @@ export default function RadarPage() {
             return (
               <motion.div
                 key={meeting.id}
-                initial={prefersReduced ? false : { opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.04, duration: 0.3, ease: 'easeOut' }}
+                variants={cardVariants}
+                whileTap={prefersReduced ? undefined : { scale: 0.985 }}
                 className="rounded-2xl bg-vf-navy-100 border border-white/5 overflow-hidden flex"
               >
                 {/* Pillar color edge */}
-                <div
-                  className="w-1 flex-shrink-0"
-                  style={{ backgroundColor: PILLAR_COLORS[meeting.pillar] }}
-                />
+                <div className={cn('w-1 flex-shrink-0', PILLAR_THEME[meeting.pillar].rail)} />
 
                 {/* Card content */}
                 <div className="flex gap-3 p-4 flex-1">
@@ -147,12 +191,10 @@ export default function RadarPage() {
                   <div className="flex flex-col gap-1.5 flex-1 min-w-0">
                     {/* Pillar badge */}
                     <span
-                      className="inline-flex self-start px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wide border"
-                      style={{
-                        color: PILLAR_COLORS[meeting.pillar],
-                        borderColor: PILLAR_COLORS[meeting.pillar] + '44',
-                        backgroundColor: PILLAR_COLORS[meeting.pillar] + '18',
-                      }}
+                      className={cn(
+                        'inline-flex self-start px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wide border',
+                        PILLAR_THEME[meeting.pillar].badge
+                      )}
                     >
                       {meeting.pillar}
                     </span>
@@ -177,14 +219,14 @@ export default function RadarPage() {
                     <div className="flex gap-2 mt-1">
                       <button
                         onClick={() => toast("We'll remind you 👀")}
-                        className="h-7 px-3 rounded-full border border-white/10 text-vf-sand/60 text-xs flex items-center gap-1"
+                        className="h-7 px-3 rounded-full border border-white/10 text-vf-sand/60 text-xs flex items-center gap-1 btn-ripple"
                       >
                         <CalendarPlus className="size-3" />
                         Add to Calendar
                       </button>
                       <button
                         onClick={() => toast("We'll remind you 👀")}
-                        className="h-7 px-3 rounded-full border border-white/10 text-vf-sand/60 text-xs flex items-center gap-1"
+                        className="h-7 px-3 rounded-full border border-white/10 text-vf-sand/60 text-xs flex items-center gap-1 btn-ripple"
                       >
                         <Bell className="size-3" />
                         Remind Me
@@ -195,7 +237,7 @@ export default function RadarPage() {
               </motion.div>
             )
           })}
-        </div>
+        </motion.div>
       )}
     </div>
   )

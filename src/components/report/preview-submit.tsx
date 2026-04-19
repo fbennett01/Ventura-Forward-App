@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import type { UseFormReturn } from 'react-hook-form'
 import { MapPin, MapPinOff, ArrowUp, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -46,12 +47,13 @@ export function PreviewSubmit({
       {/* Scrollable content */}
       <div className="flex-1 overflow-y-auto pb-32">
         {/* Photo */}
-        <div className="mx-5 mt-5 rounded-3xl overflow-hidden shadow-vf-medium border border-white/5">
-          <img
+        <div className="mx-5 mt-5 rounded-3xl overflow-hidden shadow-vf-medium border border-white/5 relative h-[42vh] max-h-[42vh]">
+          <Image
             src={imageUrl}
             alt="Report preview"
-            className="w-full h-full object-cover"
-            style={{ maxHeight: '42vh' }}
+            fill
+            className="object-cover"
+            unoptimized
           />
         </div>
 
