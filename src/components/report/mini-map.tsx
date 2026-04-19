@@ -15,7 +15,10 @@ export function MiniMap({ lat, lng, height = 128 }: MiniMapProps) {
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return
-    mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!
+    const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
+    if (!token) return
+
+    mapboxgl.accessToken = token
 
     const map = new mapboxgl.Map({
       container: containerRef.current,

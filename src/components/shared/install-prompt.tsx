@@ -6,14 +6,6 @@ import { Smartphone, X } from 'lucide-react'
 const DISMISSED_KEY = 'vf_install_dismissed'
 const DISMISS_TTL = 7 * 24 * 60 * 60 * 1000 // 7 days
 
-interface BeforeInstallPromptEvent extends Event {
-  prompt: () => Promise<void>
-  userChoice: Promise<{
-    outcome: 'accepted' | 'dismissed'
-    platform: string
-  }>
-}
-
 function isIosSafari() {
   if (typeof navigator === 'undefined') return false
   const ua = navigator.userAgent
@@ -35,7 +27,7 @@ function isDismissed() {
 export function InstallPrompt() {
   const [show, setShow] = useState(false)
   const [isIos, setIsIos] = useState(false)
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
 
   useEffect(() => {
     if (isStandalone() || isDismissed()) return
@@ -48,7 +40,7 @@ export function InstallPrompt() {
 
     const handler = (e: Event) => {
       e.preventDefault()
-      setDeferredPrompt(e as BeforeInstallPromptEvent)
+      setDeferredPrompt(e)
       setShow(true)
     }
     window.addEventListener('beforeinstallprompt', handler)
@@ -83,7 +75,7 @@ export function InstallPrompt() {
           <div className="flex-1 min-w-0">
             {isIos ? (
               <p className="text-white text-sm leading-snug">
-                <span className="font-bold">Add to Home Screen</span> — tap Share, then &quot;Add to Home Screen&quot;
+                <span className="font-bold">Add to Home Screen</span> — tap Share, then "Add to Home Screen"
               </p>
             ) : (
               <p className="text-white text-sm leading-snug">

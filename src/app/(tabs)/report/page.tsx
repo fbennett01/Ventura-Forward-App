@@ -8,11 +8,9 @@ import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 import { CategoryGrid } from "@/components/report/category-grid";
-import { MiniMap } from "@/components/report/mini-map";
 import { PhotoCapture } from "@/components/report/photo-capture";
 import { PreviewSubmit, type ReportPreviewValues } from "@/components/report/preview-submit";
 import { SuccessState } from "@/components/report/success-state";
-import { Card, CardContent } from "@/components/ui/card";
 import { getDeviceId } from "@/lib/device-id";
 import { getBrowserClient } from "@/lib/supabase/client";
 import type { ReportCategory } from "@/types";
@@ -285,21 +283,11 @@ export default function ReportPage() {
 
       {step === "preview" && previewUrl ? (
         <div className="space-y-4">
-          {latitude !== null && longitude !== null ? (
-            <MiniMap lat={latitude} lng={longitude} />
-          ) : null}
-
-          {!locationUnavailable && (latitude === null || longitude === null) ? (
-            <Card>
-              <CardContent className="py-4">
-                <p className="text-sm text-muted-foreground">Resolving location...</p>
-              </CardContent>
-            </Card>
-          ) : null}
-
           <PreviewSubmit
             form={form}
             imageUrl={previewUrl}
+            latitude={latitude}
+            longitude={longitude}
             onSubmit={handleSubmit}
             onRetake={handleRetake}
             onChangeCategory={handleChangeCategory}

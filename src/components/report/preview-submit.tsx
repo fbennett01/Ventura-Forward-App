@@ -56,7 +56,7 @@ export function PreviewSubmit({
           ) : (
             <div className="flex items-center gap-2">
               <MapPinOff className="size-4 text-vf-sand/30" />
-              <span className="text-xs text-vf-sand/40">Location&apos;s off — you can still submit without it.</span>
+              <span className="text-xs text-vf-sand/40">Location's off — you can still submit without it.</span>
             </div>
           )}
         </div>
