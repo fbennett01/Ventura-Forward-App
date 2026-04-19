@@ -1,10 +1,10 @@
+// TODO: full design pass — user will rebuild
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { mockFeed } from "@/data/mock-feed";
 
 export default function HomePage() {
   return (
     <div className="space-y-4">
-      {/* TODO: full design pass — user will rebuild */}
       <h1 className="text-2xl font-semibold">Ventura Forward</h1>
       <ul className="space-y-3">
         {mockFeed.map((item) => (

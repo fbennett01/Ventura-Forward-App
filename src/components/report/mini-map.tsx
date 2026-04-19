@@ -1,5 +1,6 @@
 "use client";
 
+// TODO: design polish
 import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -38,7 +39,6 @@ export function MiniMap({ latitude, longitude }: MiniMapProps) {
   return (
     <Card>
       <CardHeader>
-        {/* TODO: design polish */}
         <CardTitle>Location</CardTitle>
       </CardHeader>
       <CardContent>

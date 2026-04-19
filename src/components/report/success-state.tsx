@@ -1,10 +1,10 @@
+// TODO: design polish
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function SuccessState() {
   return (
     <Card>
       <CardHeader>
-        {/* TODO: design polish */}
         <CardTitle>Report submitted</CardTitle>
       </CardHeader>
       <CardContent>
