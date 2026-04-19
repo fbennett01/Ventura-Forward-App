@@ -45,6 +45,8 @@
 
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
@@ -64,6 +66,15 @@
     background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
     background-attachment: fixed, fixed, fixed, fixed;
     background-blend-mode: normal, soft-light, screen, screen;
+    overscroll-behavior-y: contain;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* iOS Safari repaints fixed backgrounds heavily; use scroll attachment on touch devices */
+  @supports (-webkit-touch-callout: none) {
+    body {
+      background-attachment: scroll, scroll, scroll, scroll;
+    }
   }
 
   /* Premium heading styles */
@@ -97,6 +108,11 @@
 
   button {
     @apply transition-all duration-300 ease-out;
+    touch-action: manipulation;
+  }
+
+  a {
+    touch-action: manipulation;
   }
 }
 
