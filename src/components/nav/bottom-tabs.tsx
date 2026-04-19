@@ -25,7 +25,8 @@ export function BottomTabs() {
       className="fixed inset-x-0 bottom-0 z-50 pb-[env(safe-area-inset-bottom)]"
       aria-label="Main navigation"
     >
-      <div className="bg-vf-navy/80 backdrop-blur-xl border-t border-white/5 h-[4.5rem] flex items-stretch">
+      <div className="bg-vf-navy/70 backdrop-blur-2xl border-t border-vf-light shadow-vf-premium h-[4.5rem] flex items-stretch"
+      >
 
         {/* Home */}
         <TabItem
@@ -128,7 +129,7 @@ function TabItem({
       {active && (
         <motion.div
           layoutId="tab-indicator"
-          className="absolute top-0 left-1/2 -translate-x-1/2 h-[3px] w-6 rounded-full bg-vf-orange"
+          className="absolute top-0 left-1/2 -translate-x-1/2 h-1 w-8 rounded-full bg-gradient-to-r from-vf-orange to-vf-orange/60 shadow-lg shadow-vf-orange/40"
           transition={
             prefersReduced
               ? { duration: 0 }
