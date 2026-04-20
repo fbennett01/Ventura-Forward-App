@@ -163,7 +163,7 @@ export default function RewardsPage() {
             variants={itemVariants}
             whileTap={prefersReduced ? undefined : { scale: 0.985 }}
           >
-            <div className="h-12 w-full rounded-xl bg-vf-navy border border-white/10 flex items-center justify-center mb-2 overflow-hidden relative px-2 shadow-vf-soft">
+            <div className="w-full aspect-[2/1] rounded-xl bg-vf-navy border border-white/10 flex items-center justify-center mb-2 overflow-hidden relative px-2 shadow-vf-soft">
               {partner.logoUrl ? (
                 <Image
                   src={partner.logoUrl}
@@ -208,7 +208,7 @@ export default function RewardsPage() {
             variants={itemVariants}
             whileTap={prefersReduced ? undefined : { scale: 0.99 }}
           >
-            <div className="w-24 h-14 rounded-xl bg-vf-navy border border-white/10 flex items-center justify-center flex-shrink-0 overflow-hidden relative px-2 shadow-vf-soft">
+            <div className="w-24 aspect-[2/1] rounded-xl bg-vf-navy border border-white/10 flex items-center justify-center flex-shrink-0 overflow-hidden relative px-2 shadow-vf-soft">
               {partner.logoUrl ? (
                 <Image
                   src={partner.logoUrl}
