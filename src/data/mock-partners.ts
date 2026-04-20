@@ -17,7 +17,7 @@ export const mockPartners: Partner[] = [
     address: "806 E Thompson Blvd, Ventura, CA 93001",
     pointsCost: 1200,
     perk: "25% off one meal bundle",
-    logoUrl: "/logos/spencer-makenzies.png",
+    logoUrl: null,
   },
   {
     id: "partner-3",
@@ -35,7 +35,7 @@ export const mockPartners: Partner[] = [
     address: "60 S California St, Ventura, CA 93001",
     pointsCost: 280,
     perk: "Free side + drink with seafood entree",
-    logoUrl: "/logos/lure-fish-house.png",
+    logoUrl: null,
   },
   {
     id: "partner-5",
@@ -44,7 +44,7 @@ export const mockPartners: Partner[] = [
     address: "1095 E Thompson Blvd, Ventura, CA 93001",
     pointsCost: 220,
     perk: "Coffee and pastry combo",
-    logoUrl: "/logos/cafe-zack.png",
+    logoUrl: null,
   },
   {
     id: "partner-6",
@@ -71,6 +71,6 @@ export const mockPartners: Partner[] = [
     address: "5720 Telephone Rd, Ventura, CA 93003",
     pointsCost: 200,
     perk: "Any medium handcrafted drink",
-    logoUrl: "/logos/petes-coffee.png",
+    logoUrl: null,
   },
 ];

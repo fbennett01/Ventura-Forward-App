@@ -35,9 +35,9 @@ const config: Config = {
         "vf-sea": "#2E9CAF",
       },
       fontFamily: {
-        display: ["Poppins", "system-ui", "sans-serif"],
-        body: ["Inter", "system-ui", "sans-serif"],
-        poppins: ["Poppins", "system-ui", "sans-serif"],
+        display: ["var(--font-poppins)", "system-ui", "sans-serif"],
+        body: ["var(--font-inter)", "system-ui", "sans-serif"],
+        poppins: ["var(--font-poppins)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
