@@ -122,7 +122,7 @@ export default function RadarPage() {
               key={pillar}
               onClick={() => toggleFilter(pillar)}
               className={cn(
-                'rounded-full px-4 py-1.5 text-sm font-medium whitespace-nowrap border transition-colors btn-ripple',
+                'rounded-full px-4 h-8 inline-flex items-center justify-center text-sm font-medium whitespace-nowrap border transition-colors btn-ripple',
                 isActive
                   ? 'text-white border-transparent'
                   : 'bg-vf-navy-100 text-vf-sand/60 border-white/5',
@@ -219,17 +219,17 @@ export default function RadarPage() {
                     <div className="flex gap-2 mt-1">
                       <button
                         onClick={() => toast("We'll remind you 👀")}
-                        className="h-7 px-3 rounded-full border border-white/10 text-vf-sand/60 text-xs flex items-center gap-1 btn-ripple"
+                        className="h-7 px-3 rounded-full border border-white/10 text-vf-sand/60 text-[11px] font-medium inline-flex items-center justify-center gap-1.5 btn-ripple hover:bg-white/5 transition-colors"
                       >
                         <CalendarPlus className="size-3" />
-                        Add to Calendar
+                        <span>Add to Calendar</span>
                       </button>
                       <button
                         onClick={() => toast("We'll remind you 👀")}
-                        className="h-7 px-3 rounded-full border border-white/10 text-vf-sand/60 text-xs flex items-center gap-1 btn-ripple"
+                        className="h-7 px-3 rounded-full border border-white/10 text-vf-sand/60 text-[11px] font-medium inline-flex items-center justify-center gap-1.5 btn-ripple hover:bg-white/5 transition-colors"
                       >
                         <Bell className="size-3" />
-                        Remind Me
+                        <span>Remind Me</span>
                       </button>
                     </div>
                   </div>

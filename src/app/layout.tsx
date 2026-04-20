@@ -54,15 +54,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} dark`}>
-      <body className="bg-vf-navy text-vf-sand antialiased font-body texture-grain min-h-screen">
-        <div className="fixed inset-0 z-[-1] pointer-events-none">
+      <body className="bg-vf-navy text-vf-sand antialiased font-body texture-grain min-h-screen relative">
+        <div className="fixed inset-0 z-[-1] pointer-events-none bg-vf-navy">
           <Image
-            src="/images/ventura/blue-texture.jpeg"
-            alt=""
+            src="/images/ventura/ventura-fade-1.webp"
+            alt="Ventura from sky"
             fill
             priority
-            className="h-full w-full object-cover opacity-35 mix-blend-soft-light"
+            className="h-full w-full object-cover mix-blend-overlay opacity-50 block"
+            unoptimized
           />
+          <div className="absolute inset-0 bg-vf-navy/70 mix-blend-multiply" />
         </div>
         {children}
       </body>

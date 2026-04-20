@@ -56,16 +56,6 @@
     -moz-osx-font-smoothing: grayscale;
     letter-spacing: -0.01em;
     background-color: #081526;
-    background-image:
-      linear-gradient(180deg, rgba(8, 21, 38, 0.78) 0%, rgba(8, 21, 38, 0.88) 45%, rgba(8, 21, 38, 0.95) 100%),
-      url('/images/ventura/blue-texture.jpeg'),
-      url('/images/ventura/ventura-fade-1.webp'),
-      url('/images/ventura/ventura-fade-2.webp');
-    background-position: center, center, top center, bottom center;
-    background-size: cover, cover, cover, cover;
-    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-    background-attachment: fixed, fixed, fixed, fixed;
-    background-blend-mode: normal, soft-light, screen, screen;
     overscroll-behavior-y: contain;
     -webkit-tap-highlight-color: transparent;
   }

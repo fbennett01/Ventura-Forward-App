@@ -123,7 +123,7 @@ export default function RewardsPage() {
         {/* Scan button */}
         <button
           onClick={() => setScanOpen(true)}
-          className="btn-ripple absolute bottom-4 right-4 bg-white text-vf-navy rounded-full px-4 py-2 text-sm font-bold flex items-center gap-1.5 shadow-md shadow-white/20 hover:scale-105 active:scale-95 transition-all"
+          className="btn-ripple absolute bottom-4 right-4 z-20 bg-white text-vf-navy rounded-full px-4 py-2 text-sm font-bold flex items-center gap-1.5 shadow-md shadow-white/20 hover:scale-105 active:scale-95 transition-all"
         >
           <QrCode className="size-4 text-vf-navy" />
           Scan to Earn
@@ -167,10 +167,14 @@ export default function RewardsPage() {
             variants={itemVariants}
             whileTap={prefersReduced ? undefined : { scale: 0.985 }}
           >
-            <div className="w-12 h-12 rounded-xl bg-vf-sand/10 flex items-center justify-center mb-2">
-              <span className="font-display font-bold text-xl text-vf-sand/50">
-                {partner.name[0]}
-              </span>
+            <div className="w-12 h-12 rounded-xl bg-vf-sand/10 flex items-center justify-center mb-2 overflow-hidden relative">
+              {partner.logoUrl ? (
+                <Image src={partner.logoUrl} alt={partner.name} fill className="object-cover" unoptimized />
+              ) : (
+                <span className="font-display font-bold text-xl text-vf-sand/50">
+                  {partner.name[0]}
+                </span>
+              )}
             </div>
             <p className="font-semibold text-sm text-vf-sand truncate">{partner.name}</p>
             <p className="text-xs text-vf-sand/50 line-clamp-2 mt-0.5 leading-relaxed">
@@ -201,10 +205,14 @@ export default function RewardsPage() {
             variants={itemVariants}
             whileTap={prefersReduced ? undefined : { scale: 0.99 }}
           >
-            <div className="w-14 h-14 rounded-xl bg-vf-sand/10 flex items-center justify-center flex-shrink-0">
-              <span className="font-display font-bold text-xl text-vf-sand/50">
-                {partner.name[0]}
-              </span>
+            <div className="w-14 h-14 rounded-xl bg-vf-sand/10 flex items-center justify-center flex-shrink-0 overflow-hidden relative">
+              {partner.logoUrl ? (
+                <Image src={partner.logoUrl} alt={partner.name} fill className="object-cover" unoptimized />
+              ) : (
+                <span className="font-display font-bold text-xl text-vf-sand/50">
+                  {partner.name[0]}
+                </span>
+              )}
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-semibold text-vf-sand">{partner.name}</p>
