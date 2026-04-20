@@ -114,10 +114,6 @@ export default function RewardsPage() {
           <p className="font-display font-extrabold text-6xl text-white leading-none mt-1">
             {BALANCE}
           </p>
-          <div className="text-white/80 text-sm mt-2 flex items-center gap-1">
-            <Leaf className="size-3" />
-            Keep Ventura moving forward, Forwardteer
-          </div>
         </div>
 
         {/* Scan button */}
@@ -167,14 +163,14 @@ export default function RewardsPage() {
             variants={itemVariants}
             whileTap={prefersReduced ? undefined : { scale: 0.985 }}
           >
-            <div className="w-12 h-12 rounded-xl bg-white/95 flex items-center justify-center mb-2 overflow-hidden relative p-1.5 shadow-vf-soft">
+            <div className="w-full aspect-[2/1] rounded-xl bg-vf-navy border border-white/10 flex items-center justify-center mb-2 overflow-hidden relative px-2 shadow-vf-soft">
               {partner.logoUrl ? (
                 <Image
                   src={partner.logoUrl}
                   alt={`${partner.name} logo`}
                   fill
-                  sizes="48px"
-                  className="object-contain p-1"
+                  sizes="144px"
+                  className="object-contain object-center p-1"
                   unoptimized
                 />
               ) : (
@@ -212,14 +208,14 @@ export default function RewardsPage() {
             variants={itemVariants}
             whileTap={prefersReduced ? undefined : { scale: 0.99 }}
           >
-            <div className="w-14 h-14 rounded-xl bg-white/95 flex items-center justify-center flex-shrink-0 overflow-hidden relative p-2 shadow-vf-soft">
+            <div className="w-24 aspect-[2/1] rounded-xl bg-vf-navy border border-white/10 flex items-center justify-center flex-shrink-0 overflow-hidden relative px-2 shadow-vf-soft">
               {partner.logoUrl ? (
                 <Image
                   src={partner.logoUrl}
                   alt={`${partner.name} logo`}
                   fill
-                  sizes="56px"
-                  className="object-contain p-1"
+                  sizes="96px"
+                  className="object-contain object-center p-1"
                   unoptimized
                 />
               ) : (

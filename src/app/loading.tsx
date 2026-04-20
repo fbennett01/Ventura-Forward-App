@@ -7,12 +7,11 @@ export default function Loading() {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-vf-navy px-6 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
       <Image
-        src="https://static.wixstatic.com/media/456ff2_4c565c673662441990a8983ef56bbc4b~mv2.png/v1/fill/w_1570,h_926,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/456ff2_4c565c673662441990a8983ef56bbc4b~mv2.png"
+        src="/images/ventura/ventura-fade-2.webp"
         alt="Ventura from sky"
         fill
         priority
         className="object-cover opacity-30 mix-blend-luminosity"
-        unoptimized
       />
 
       <div className="absolute inset-0 bg-gradient-to-b from-vf-navy/45 via-vf-navy/72 to-vf-navy/92" />
