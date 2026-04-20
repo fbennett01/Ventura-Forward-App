@@ -14,14 +14,14 @@ export function PhotoCapture({ cameraError, onRetry, onFileSelected }: PhotoCapt
   return (
     <div className="flex flex-col min-h-screen bg-vf-navy/70 backdrop-blur-xl relative">
       {/* Header */}
-      <header className="absolute top-0 inset-x-0 z-40 h-16 flex items-center justify-center px-5 border-b border-border/5 bg-vf-navy/60">
+      <header className="absolute top-0 inset-x-0 z-40 h-[calc(4rem+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)] flex items-center justify-center px-5 border-b border-border/5 bg-vf-navy/60">
         <span className="font-poppins font-black text-sm tracking-widest text-white uppercase drop-shadow-sm">
           Capture Photo
         </span>
       </header>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col items-center justify-center pt-16 px-6">
+      <div className="flex-1 flex flex-col items-center justify-center pt-[calc(4rem+env(safe-area-inset-top))] px-6">
         
         {cameraError && (
           <motion.div 
@@ -74,7 +74,7 @@ export function PhotoCapture({ cameraError, onRetry, onFileSelected }: PhotoCapt
       </div>
 
       {/* Footer Area */}
-      <div className="absolute bottom-0 inset-x-0 pb-10 pt-4 bg-gradient-to-t from-vf-navy/90 to-transparent flex justify-center z-40">
+      <div className="absolute bottom-0 inset-x-0 pb-[calc(2.5rem+env(safe-area-inset-bottom))] pt-4 bg-gradient-to-t from-vf-navy/90 to-transparent flex justify-center z-40">
         <label
           htmlFor={inputId}
           className="flex items-center justify-center w-16 h-16 rounded-full bg-white text-vf-navy shadow-vf-premium cursor-pointer hover:scale-105 active:scale-95 transition-transform"

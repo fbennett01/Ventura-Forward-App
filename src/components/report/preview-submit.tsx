@@ -38,7 +38,7 @@ export function PreviewSubmit({
   return (
     <div className="flex flex-col min-h-screen bg-vf-navy/70 backdrop-blur-md">
       {/* Sticky header */}
-      <header className="sticky top-0 z-40 h-16 border-b border-border/5 flex items-center justify-center px-5">
+      <header className="sticky top-0 z-40 h-[calc(4rem+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)] border-b border-border/5 flex items-center justify-center px-5">
         <span className="font-poppins font-black text-sm tracking-widest text-white uppercase drop-shadow-sm">
           Review Report
         </span>
@@ -108,7 +108,7 @@ export function PreviewSubmit({
       </div>
 
       {/* Fixed bottom */}
-      <div className="fixed bottom-0 left-0 right-0 px-5 pb-8 pt-4 bg-gradient-to-t from-vf-navy/95 via-vf-navy/80 to-transparent backdrop-blur-sm">
+      <div className="fixed bottom-0 left-0 right-0 px-5 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-4 bg-gradient-to-t from-vf-navy/95 via-vf-navy/80 to-transparent backdrop-blur-sm">
         <button
           onClick={() => form.handleSubmit(onSubmit)()}
           disabled={isSubmitting}

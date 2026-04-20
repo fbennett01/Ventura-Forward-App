@@ -122,13 +122,13 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen pb-16">
       {/* Premium Header */}
-      <header className="sticky top-0 z-40 h-16 flex items-center justify-between px-5 bg-vf-navy/60 backdrop-blur-2xl border-b border-border/5 shadow-sm">
+      <header className="sticky top-0 z-40 h-[calc(4rem+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)] flex items-center justify-between px-5 bg-vf-navy/60 backdrop-blur-2xl border-b border-border/5 shadow-sm">
         <div className="flex flex-row items-center gap-3">
           <Image 
             src="/images/ventura/logo-white.png" 
             alt="Ventura Forward Logo" 
-            width={120} 
-            height={40} 
+            width={224} 
+            height={94} 
             className="object-contain h-8 w-auto mix-blend-plus-lighter opacity-90 drop-shadow-[0_0_12px_rgba(215,235,255,0.4)]"
           />
         </div>
@@ -137,7 +137,7 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <motion.div
-        className="relative px-5 py-10 text-center border-b border-border/5 bg-gradient-to-b from-vf-navy-100/10 to-transparent"
+        className="relative px-5 pt-12 pb-10 text-center border-b border-border/5 bg-gradient-to-b from-vf-navy-100/10 to-transparent"
         initial={reduced ? false : { opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: reduced ? 0 : 0.36, ease: [0.16, 1, 0.3, 1] }}

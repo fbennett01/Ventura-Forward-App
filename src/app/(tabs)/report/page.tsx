@@ -263,9 +263,7 @@ export default function ReportPage() {
   };
 
   return (
-    <div className="space-y-4">
-      <h1 className="text-2xl font-semibold">Report It</h1>
-
+    <div>
       {step === "category" ? <CategoryGrid onSelect={handleCategorySelect} /> : null}
 
       {step === "capture" && selectedCategory ? (
@@ -282,20 +280,18 @@ export default function ReportPage() {
       ) : null}
 
       {step === "preview" && previewUrl ? (
-        <div className="space-y-4">
-          <PreviewSubmit
-            form={form}
-            imageUrl={previewUrl}
-            latitude={latitude}
-            longitude={longitude}
-            onSubmit={handleSubmit}
-            onRetake={handleRetake}
-            onChangeCategory={handleChangeCategory}
-            isSubmitting={isSubmitting}
-            submitError={submitError}
-            locationUnavailable={locationUnavailable}
-          />
-        </div>
+        <PreviewSubmit
+          form={form}
+          imageUrl={previewUrl}
+          latitude={latitude}
+          longitude={longitude}
+          onSubmit={handleSubmit}
+          onRetake={handleRetake}
+          onChangeCategory={handleChangeCategory}
+          isSubmitting={isSubmitting}
+          submitError={submitError}
+          locationUnavailable={locationUnavailable}
+        />
       ) : null}
 
       {step === "success" ? <SuccessState /> : null}
