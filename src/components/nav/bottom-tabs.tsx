@@ -49,7 +49,7 @@ export function BottomTabs() {
         />
 
         {/* Report — center special tab */}
-        <div className="flex-1 flex items-center justify-center">
+        <div className="flex-1 flex flex-col items-center justify-center relative">
           <motion.div
             whileTap={{ scale: prefersReduced ? 1 : 0.92 }}
             transition={springTransition}
@@ -57,7 +57,7 @@ export function BottomTabs() {
           >
             {reportActive && (
               <motion.div
-                className="absolute w-14 h-14 rounded-full bg-vf-orange/30"
+                className="absolute w-14 h-14 rounded-full bg-vf-accent/30 -translate-y-3"
                 animate={
                   prefersReduced
                     ? {}
@@ -74,7 +74,7 @@ export function BottomTabs() {
               href="/report"
               aria-label="Report"
               aria-current={reportActive ? "page" : undefined}
-              className="-translate-y-3 vf-gradient rounded-full w-14 h-14 flex items-center justify-center shadow-lg shadow-vf-orange/30 btn-ripple"
+              className="-translate-y-3 vf-gradient rounded-full w-14 h-14 flex items-center justify-center shadow-lg shadow-vf-accent/30 btn-ripple"
               onClick={() => {
                 if (typeof navigator !== "undefined") navigator.vibrate?.(8);
               }}
@@ -82,6 +82,13 @@ export function BottomTabs() {
               <Camera size={24} className="text-white" aria-hidden />
             </Link>
           </motion.div>
+          <span
+            className={`text-[10px] font-medium -mt-1 tracking-wide uppercase ${
+              reportActive ? "text-vf-accent" : "text-vf-sand/40"
+            }`}
+          >
+            Report
+          </span>
         </div>
 
         {/* Rewards */}
@@ -129,7 +136,7 @@ function TabItem({
       {active && (
         <motion.div
           layoutId="tab-indicator"
-          className="absolute top-0 left-1/2 -translate-x-1/2 h-1 w-8 rounded-full bg-gradient-to-r from-vf-orange to-vf-orange/60 shadow-lg shadow-vf-orange/40"
+          className="absolute top-0 left-1/2 -translate-x-1/2 h-1 w-8 rounded-full bg-gradient-to-r from-vf-accent to-vf-accent/60 shadow-lg shadow-vf-accent/40"
           transition={
             prefersReduced
               ? { duration: 0 }
@@ -147,13 +154,13 @@ function TabItem({
           aria-hidden
           className={
             active
-              ? "text-vf-orange drop-shadow-[0_0_6px_rgba(160,210,255,0.8)]"
+              ? "text-vf-accent drop-shadow-[0_0_6px_rgba(160,210,255,0.8)]"
               : "text-vf-sand/40"
           }
         />
         <span
           className={`text-[10px] font-medium mt-1 tracking-wide uppercase ${
-            active ? "text-vf-orange" : "text-vf-sand/40"
+            active ? "text-vf-accent" : "text-vf-sand/40"
           }`}
         >
           {label}

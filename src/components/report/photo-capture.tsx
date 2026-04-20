@@ -29,11 +29,11 @@ export function PhotoCapture({ cameraError, onRetry, onFileSelected }: PhotoCapt
             animate={{ opacity: 1, y: 0 }}
             className="w-full bg-red-950/30 border border-red-500/20 rounded-2xl p-5 text-center mb-6 shadow-vf-medium"
           >
-            <p className="text-sm font-medium text-vf-orange mb-4">{cameraError}</p>
+            <p className="text-sm font-medium text-red-300 mb-4">{cameraError}</p>
             <button 
               type="button" 
               onClick={onRetry}
-              className="text-xs font-bold text-vf-navy bg-vf-orange px-4 py-2 rounded-full hover:bg-white transition-colors"
+              className="text-xs font-bold text-vf-navy bg-vf-accent px-4 py-2 rounded-full hover:bg-white transition-colors"
             >
               Retry Camera
             </button>
@@ -45,13 +45,13 @@ export function PhotoCapture({ cameraError, onRetry, onFileSelected }: PhotoCapt
           className="relative w-full aspect-[4/5] max-h-[60vh] bg-vf-navy-100/40 rounded-3xl border border-white/10 border-dashed flex flex-col items-center justify-center gap-4 cursor-pointer hover:bg-vf-navy-100/60 hover:border-white/20 transition-all group overflow-hidden shadow-vf-medium"
         >
           {/* Target Corners */}
-          <div className="absolute top-6 left-6 w-8 h-8 border-t-2 border-l-2 rounded-tl-xl border-vf-orange/40 group-hover:border-vf-orange transition-colors" />
-          <div className="absolute top-6 right-6 w-8 h-8 border-t-2 border-r-2 rounded-tr-xl border-vf-orange/40 group-hover:border-vf-orange transition-colors" />
-          <div className="absolute bottom-6 left-6 w-8 h-8 border-b-2 border-l-2 rounded-bl-xl border-vf-orange/40 group-hover:border-vf-orange transition-colors" />
-          <div className="absolute bottom-6 right-6 w-8 h-8 border-b-2 border-r-2 rounded-br-xl border-vf-orange/40 group-hover:border-vf-orange transition-colors" />
+          <div className="absolute top-6 left-6 w-8 h-8 border-t-2 border-l-2 rounded-tl-xl border-vf-accent/40 group-hover:border-vf-accent transition-colors" />
+          <div className="absolute top-6 right-6 w-8 h-8 border-t-2 border-r-2 rounded-tr-xl border-vf-accent/40 group-hover:border-vf-accent transition-colors" />
+          <div className="absolute bottom-6 left-6 w-8 h-8 border-b-2 border-l-2 rounded-bl-xl border-vf-accent/40 group-hover:border-vf-accent transition-colors" />
+          <div className="absolute bottom-6 right-6 w-8 h-8 border-b-2 border-r-2 rounded-br-xl border-vf-accent/40 group-hover:border-vf-accent transition-colors" />
 
-          <div className="w-16 h-16 rounded-full bg-vf-orange/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-            <Camera className="size-8 text-vf-orange" />
+          <div className="w-16 h-16 rounded-full bg-vf-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <Camera className="size-8 text-vf-accent" />
           </div>
           <p className="font-poppins font-semibold text-lg text-white">Tap to snap</p>
           <p className="text-sm text-vf-sand/50 font-medium">or upload from gallery</p>

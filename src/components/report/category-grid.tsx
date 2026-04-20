@@ -77,8 +77,8 @@ export function CategoryGrid({ onSelect }: CategoryGridProps) {
                 }}
                 className="btn-ripple relative w-full aspect-square rounded-3xl bg-vf-navy-100/40 backdrop-blur-md border border-white/5 shadow-vf-soft flex flex-col items-center justify-center gap-4 hover:bg-vf-navy-100/60 hover:shadow-vf-medium transition-all group"
               >
-                <div className="w-14 h-14 rounded-2xl bg-vf-orange/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Icon className="size-7 text-vf-orange drop-shadow-sm" />
+                <div className="w-14 h-14 rounded-2xl bg-vf-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Icon className="size-7 text-vf-accent drop-shadow-sm" />
                 </div>
                 <span className="font-poppins font-semibold text-lg text-vf-sand capitalize tracking-tight">{category.value}</span>
               </button>

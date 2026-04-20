@@ -8,7 +8,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-vf-orange text-white shadow-vf-soft hover:shadow-vf-medium hover:bg-vf-orange/90 active:shadow-vf-soft",
+        default: "bg-vf-accent text-vf-navy shadow-vf-soft hover:shadow-vf-medium hover:bg-vf-accent/90 active:shadow-vf-soft",
         outline:
           "border-vf-light bg-transparent hover:bg-vf-navy-100/50 text-vf-sand transition-all duration-300 shadow-vf-soft hover:shadow-vf-medium",
         secondary:
@@ -17,7 +17,7 @@ const buttonVariants = cva(
           "hover:bg-vf-navy-100/50 text-vf-sand hover:text-vf-sand transition-all duration-300",
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
-        link: "text-vf-orange underline-offset-4 hover:underline hover:text-vf-orange/80 transition-colors",
+        link: "text-vf-accent underline-offset-4 hover:underline hover:text-vf-accent/80 transition-colors",
       },
       size: {
         default:

@@ -11,6 +11,7 @@ export interface FeedItem {
   excerpt: string;
   imageUrl: string;
   date: string;
+  href: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   meta: Record<string, any>;
 }

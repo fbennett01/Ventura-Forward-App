@@ -88,7 +88,7 @@ export default function RewardsPage() {
             Rewards
           </span>
         </div>
-        <Leaf className="size-4 text-vf-orange drop-shadow-[0_0_12px_rgba(215,235,255,0.4)]" />
+        <Leaf className="size-4 text-vf-accent drop-shadow-[0_0_12px_rgba(215,235,255,0.4)]" />
       </header>
 
       {/* Balance hero card */}
@@ -135,14 +135,14 @@ export default function RewardsPage() {
         <SheetContent side="bottom" className="bg-vf-navy border-t border-white/10 rounded-t-3xl pb-10">
           <div className="flex flex-col items-center gap-4 pt-2">
             <div className="w-12 h-1 rounded-full bg-white/20" />
-            <QrCode className="size-16 text-vf-orange" />
+            <QrCode className="size-16 text-vf-accent" />
             <h3 className="font-display font-bold text-xl text-vf-sand">Scanner&apos;s cooking.</h3>
             <p className="text-vf-sand/60 text-sm text-center px-6 leading-relaxed">
               For now, tap any partner below to simulate earning points.
             </p>
             <Button
               onClick={() => setScanOpen(false)}
-              className="btn-ripple relative vf-gradient text-vf-navy font-bold rounded-full px-8 mt-2 active:scale-95 transition-all shadow-md hover:shadow-lg shadow-vf-orange/30"
+              className="btn-ripple relative vf-gradient text-vf-navy font-bold rounded-full px-8 mt-2 active:scale-95 transition-all shadow-md hover:shadow-lg shadow-vf-accent/30"
             >
               Got it
             </Button>
@@ -167,11 +167,18 @@ export default function RewardsPage() {
             variants={itemVariants}
             whileTap={prefersReduced ? undefined : { scale: 0.985 }}
           >
-            <div className="w-12 h-12 rounded-xl bg-vf-sand/10 flex items-center justify-center mb-2 overflow-hidden relative">
+            <div className="w-12 h-12 rounded-xl bg-white/95 flex items-center justify-center mb-2 overflow-hidden relative p-1.5 shadow-vf-soft">
               {partner.logoUrl ? (
-                <Image src={partner.logoUrl} alt={partner.name} fill className="object-cover" unoptimized />
+                <Image
+                  src={partner.logoUrl}
+                  alt={`${partner.name} logo`}
+                  fill
+                  sizes="48px"
+                  className="object-contain p-1"
+                  unoptimized
+                />
               ) : (
-                <span className="font-display font-bold text-xl text-vf-sand/50">
+                <span className="font-display font-bold text-xl text-vf-navy/70">
                   {partner.name[0]}
                 </span>
               )}
@@ -180,7 +187,7 @@ export default function RewardsPage() {
             <p className="text-xs text-vf-sand/50 line-clamp-2 mt-0.5 leading-relaxed">
               {partner.perk}
             </p>
-            <div className="flex items-center gap-1 mt-2 text-vf-orange text-xs font-bold">
+            <div className="flex items-center gap-1 mt-2 text-vf-accent text-xs font-bold">
               <Leaf className="size-3" />
               {partner.pointsCost} pts
             </div>
@@ -205,11 +212,18 @@ export default function RewardsPage() {
             variants={itemVariants}
             whileTap={prefersReduced ? undefined : { scale: 0.99 }}
           >
-            <div className="w-14 h-14 rounded-xl bg-vf-sand/10 flex items-center justify-center flex-shrink-0 overflow-hidden relative">
+            <div className="w-14 h-14 rounded-xl bg-white/95 flex items-center justify-center flex-shrink-0 overflow-hidden relative p-2 shadow-vf-soft">
               {partner.logoUrl ? (
-                <Image src={partner.logoUrl} alt={partner.name} fill className="object-cover" unoptimized />
+                <Image
+                  src={partner.logoUrl}
+                  alt={`${partner.name} logo`}
+                  fill
+                  sizes="56px"
+                  className="object-contain p-1"
+                  unoptimized
+                />
               ) : (
-                <span className="font-display font-bold text-xl text-vf-sand/50">
+                <span className="font-display font-bold text-xl text-vf-navy/70">
                   {partner.name[0]}
                 </span>
               )}
@@ -238,15 +252,15 @@ export default function RewardsPage() {
         animate={prefersReduced ? undefined : 'show'}
       >
         <motion.div className="flex items-center gap-3 rounded-xl bg-vf-navy-100 border border-white/5 px-4 py-3" variants={itemVariants}>
-          <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-vf-orange/15">
-            <Plus className="size-4 text-vf-orange" />
+          <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-vf-accent/15">
+            <Plus className="size-4 text-vf-accent" />
           </div>
           <span className="flex-1 text-sm text-vf-sand font-medium">+5 pts at Cafe Zack</span>
           <span className="text-xs text-vf-sand/40">2d ago</span>
         </motion.div>
         <motion.div className="flex items-center gap-3 rounded-xl bg-vf-navy-100 border border-white/5 px-4 py-3" variants={itemVariants}>
-          <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-vf-orange/15">
-            <Plus className="size-4 text-vf-orange" />
+          <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-vf-accent/15">
+            <Plus className="size-4 text-vf-accent" />
           </div>
           <span className="flex-1 text-sm text-vf-sand font-medium">+3 pts at Pizza Chief</span>
           <span className="text-xs text-vf-sand/40">5d ago</span>

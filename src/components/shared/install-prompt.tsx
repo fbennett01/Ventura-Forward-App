@@ -68,7 +68,7 @@ export function InstallPrompt() {
     <AnimatePresence>
       {show && (
         <motion.div
-          className="fixed bottom-24 inset-x-4 z-30 rounded-2xl vf-gradient p-4 flex items-center gap-3 shadow-xl shadow-vf-orange/20"
+          className="fixed inset-x-4 z-30 rounded-2xl vf-gradient p-4 flex items-center gap-3 shadow-xl shadow-vf-accent/20 bottom-[calc(5rem+env(safe-area-inset-bottom)+1rem)]"
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
@@ -92,7 +92,7 @@ export function InstallPrompt() {
             {!isIos && deferredPrompt && (
               <button
                 onClick={install}
-                className="bg-white text-vf-orange text-xs font-bold px-3 py-1.5 rounded-full"
+                className="bg-white text-vf-accent text-xs font-bold px-3 py-1.5 rounded-full"
               >
                 Install
               </button>

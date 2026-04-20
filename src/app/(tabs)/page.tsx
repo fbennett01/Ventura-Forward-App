@@ -8,8 +8,11 @@ import type { FeedItem } from '@/types';
 
 function BlogCard({ item }: { item: FeedItem & { type: 'blog' } }) {
   return (
-    <motion.div
-      className="rounded-2xl bg-vf-navy-100/50 border border-vf-light overflow-hidden shadow-vf-soft hover:shadow-vf-medium transition-all duration-300 group cursor-pointer"
+    <motion.a
+      href={item.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block rounded-2xl bg-vf-navy-100/50 border border-vf-light overflow-hidden shadow-vf-soft hover:shadow-vf-medium transition-all duration-300 group cursor-pointer"
       whileTap={{ scale: 0.98 }}
       whileHover={{ y: -4 }}
     >
@@ -17,7 +20,7 @@ function BlogCard({ item }: { item: FeedItem & { type: 'blog' } }) {
         <Image src={item.imageUrl} alt={item.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" unoptimized />
       </div>
       <div className="p-5 space-y-3">
-        <span className="inline-flex items-center px-3 py-1 rounded-full bg-vf-orange/15 text-vf-orange text-xs font-bold tracking-widest uppercase">
+        <span className="inline-flex items-center px-3 py-1 rounded-full bg-vf-accent/15 text-vf-accent text-xs font-bold tracking-widest uppercase">
           BLOG
         </span>
         <p className="font-poppins font-bold text-lg leading-tight text-vf-sand line-clamp-2">
@@ -28,18 +31,21 @@ function BlogCard({ item }: { item: FeedItem & { type: 'blog' } }) {
           <span className="text-xs text-vf-sand/50">
             {new Date(item.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
           </span>
-          <span className="text-xs font-bold text-vf-orange group-hover:translate-x-1 transition-transform">
-            Read <ArrowRight className="inline w-3 h-3 ml-1" />
+          <span className="text-xs font-bold text-vf-accent group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+            Read more <ArrowRight className="w-3 h-3" />
           </span>
         </div>
       </div>
-    </motion.div>
+    </motion.a>
   );
 }
 
 function PodcastCard({ item }: { item: FeedItem & { type: 'podcast' } }) {
   return (
-    <motion.div
+    <motion.a
+      href={item.href}
+      target="_blank"
+      rel="noopener noreferrer"
       className="rounded-2xl bg-vf-navy-100/50 border border-vf-light p-4 flex gap-4 shadow-vf-soft hover:shadow-vf-medium transition-all duration-300 group cursor-pointer"
       whileTap={{ scale: 0.98 }}
       whileHover={{ y: -2 }}
@@ -64,14 +70,17 @@ function PodcastCard({ item }: { item: FeedItem & { type: 'podcast' } }) {
           <span>{item.meta.duration}</span>
         </div>
       </div>
-    </motion.div>
+    </motion.a>
   );
 }
 
 function InstagramCard({ item }: { item: FeedItem & { type: 'instagram' } }) {
   return (
-    <motion.div
-      className="rounded-2xl overflow-hidden relative aspect-square shadow-vf-soft hover:shadow-vf-medium transition-all duration-300 group cursor-pointer"
+    <motion.a
+      href={item.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block rounded-2xl overflow-hidden relative aspect-square shadow-vf-soft hover:shadow-vf-medium transition-all duration-300 group cursor-pointer"
       whileTap={{ scale: 0.98 }}
       whileHover={{ y: -4 }}
     >
@@ -84,7 +93,7 @@ function InstagramCard({ item }: { item: FeedItem & { type: 'instagram' } }) {
         <Heart className="size-4 text-white" />
         <span className="text-white text-xs font-semibold">{item.meta.likes}</span>
       </div>
-    </motion.div>
+    </motion.a>
   );
 }
 

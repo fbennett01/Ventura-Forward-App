@@ -87,7 +87,7 @@ export function PreviewSubmit({
                         value={field.value ?? ''}
                         placeholder="Add context (optional)"
                         maxLength={500}
-                        className="bg-vf-navy-100/50 border-white/10 resize-none text-white placeholder:text-vf-sand/40 rounded-2xl p-4 focus-visible:ring-vf-orange/50 transition-all font-body shadow-inner"
+                        className="bg-vf-navy-100/50 border-white/10 resize-none text-white placeholder:text-vf-sand/40 rounded-2xl p-4 focus-visible:ring-vf-accent/50 transition-all font-body shadow-inner"
                         rows={3}
                       />
                     </FormControl>
@@ -98,7 +98,7 @@ export function PreviewSubmit({
               <p className="text-right text-[10px] font-semibold text-vf-sand/40 mt-1">{descriptionLength}/500</p>
 
               {submitError && (
-                <div className="text-sm font-medium text-vf-orange drop-shadow-sm bg-red-950/30 border border-red-500/20 px-4 py-3 rounded-xl">
+                <div className="text-sm font-medium text-red-300 drop-shadow-sm bg-red-950/30 border border-red-500/20 px-4 py-3 rounded-xl">
                   {submitError}
                 </div>
               )}
@@ -112,7 +112,7 @@ export function PreviewSubmit({
         <button
           onClick={() => form.handleSubmit(onSubmit)()}
           disabled={isSubmitting}
-          className="btn-ripple relative overflow-hidden w-full h-14 rounded-full bg-gradient-to-r from-vf-orange to-blue-400 font-poppins font-bold text-vf-navy text-lg flex items-center justify-center gap-2 hover:from-blue-300 hover:to-blue-500 disabled:opacity-50 transition-all shadow-vf-medium hover:shadow-vf-premium"
+          className="btn-ripple relative overflow-hidden w-full h-14 rounded-full bg-gradient-to-r from-vf-accent to-blue-400 font-poppins font-bold text-vf-navy text-lg flex items-center justify-center gap-2 hover:from-blue-300 hover:to-blue-500 disabled:opacity-50 transition-all shadow-vf-medium hover:shadow-vf-premium"
         >
           {isSubmitting ? (
             <Loader2 className="size-5 animate-spin" />

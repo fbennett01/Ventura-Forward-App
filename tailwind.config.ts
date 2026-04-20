@@ -31,7 +31,7 @@ const config: Config = {
         "vf-navy": "#0C1A2E",
         "vf-navy-100": "#152238",
         "vf-sand": "#EDE8DC",
-        "vf-orange": "#D7EBFF",
+        "vf-accent": "#D7EBFF",
         "vf-sea": "#2E9CAF",
       },
       fontFamily: {

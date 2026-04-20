@@ -109,7 +109,7 @@ export default function RadarPage() {
           animate={{ opacity: [1, 0.4, 1] }}
           transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
         >
-          <Radio className="size-4 text-vf-orange drop-shadow-[0_0_6px_rgba(215,235,255,0.4)]" />
+          <Radio className="size-4 text-vf-accent drop-shadow-[0_0_6px_rgba(215,235,255,0.4)]" />
         </motion.div>
       </header>
 

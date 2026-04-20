@@ -74,6 +74,14 @@ export default function ReportPage() {
       return;
     }
 
+    const isTouchDevice =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(pointer: coarse)").matches;
+
+    if (!isTouchDevice) {
+      return;
+    }
+
     let stream: MediaStream | null = null;
 
     const checkCameraPermission = async () => {
