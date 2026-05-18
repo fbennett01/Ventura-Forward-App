@@ -1,12 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import Image from "next/image";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  variable: "--font-poppins",
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -53,7 +62,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} dark`}>
+    <html lang="en" className={`${inter.variable} ${poppins.variable} dark`}>
       <body className="bg-vf-navy text-vf-sand antialiased font-body texture-grain min-h-screen relative">
         <div className="fixed inset-0 z-[-1] pointer-events-none bg-vf-navy">
           <Image
@@ -61,11 +70,13 @@ export default function RootLayout({
             alt=""
             fill
             priority
+            sizes="100vw"
             className="h-full w-full object-cover mix-blend-luminosity opacity-20 block"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-vf-navy/40 to-vf-navy/90" />
         </div>
         {children}
+        <Toaster position="top-center" />
       </body>
     </html>
   );

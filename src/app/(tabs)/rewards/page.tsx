@@ -73,15 +73,16 @@ export default function RewardsPage() {
       }
 
   return (
-    <div className="flex flex-col min-h-screen pb-16">
+    <div className="flex flex-col min-h-screen pb-28">
       {/* Sticky header */}
       <header className="sticky top-0 z-40 h-[calc(4rem+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)] bg-vf-navy/60 backdrop-blur-2xl border-b border-border/5 flex items-center justify-between px-5">
         <div className="flex flex-row items-center gap-3">
-          <Image 
-            src="/images/ventura/logo-white.png" 
-            alt="Ventura Forward Logo" 
-            width={224} 
-            height={94} 
+          <Image
+            src="/images/ventura/logo-white.png"
+            alt="Ventura Forward Logo"
+            width={224}
+            height={94}
+            priority
             className="object-contain h-6 w-auto mix-blend-plus-lighter opacity-90 drop-shadow-[0_0_12px_rgba(215,235,255,0.4)]"
           />
           <span className="font-poppins font-black text-sm tracking-widest text-white uppercase drop-shadow-sm">
@@ -196,7 +197,7 @@ export default function RewardsPage() {
         All Partners
       </p>
       <motion.div
-        className="space-y-2 px-4 pb-28"
+        className="space-y-2 px-4"
         variants={listVariants}
         initial={prefersReduced ? false : 'hidden'}
         animate={prefersReduced ? undefined : 'show'}

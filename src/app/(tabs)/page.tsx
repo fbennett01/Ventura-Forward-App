@@ -6,7 +6,7 @@ import { PlayCircle, Clock, Heart, ArrowRight } from 'lucide-react';
 import { mockFeed } from '@/data/mock-feed';
 import type { FeedItem } from '@/types';
 
-function BlogCard({ item }: { item: FeedItem & { type: 'blog' } }) {
+function BlogCard({ item, priority }: { item: FeedItem & { type: 'blog' }; priority?: boolean }) {
   return (
     <motion.a
       href={item.href}
@@ -17,7 +17,7 @@ function BlogCard({ item }: { item: FeedItem & { type: 'blog' } }) {
       whileHover={{ y: -4 }}
     >
       <div className="relative w-full aspect-[16/9] overflow-hidden">
-        <Image src={item.imageUrl} alt={item.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" unoptimized />
+        <Image src={item.imageUrl} alt={item.title} fill priority={priority} sizes="(max-width: 672px) calc(100vw - 2.5rem), 672px" className="object-cover group-hover:scale-105 transition-transform duration-300" />
       </div>
       <div className="p-5 space-y-3">
         <span className="inline-flex items-center px-3 py-1 rounded-full bg-vf-accent/15 text-vf-accent text-xs font-bold tracking-widest uppercase">
@@ -51,7 +51,7 @@ function PodcastCard({ item }: { item: FeedItem & { type: 'podcast' } }) {
       whileHover={{ y: -2 }}
     >
       <div className="relative w-24 h-24 rounded-xl overflow-hidden flex-shrink-0 shadow-vf-soft">
-        <Image src={item.imageUrl} alt={item.title} fill className="object-cover group-hover:scale-110 transition-transform duration-300" unoptimized />
+        <Image src={item.imageUrl} alt={item.title} fill sizes="96px" className="object-cover group-hover:scale-110 transition-transform duration-300" />
         <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/40 transition-all">
           <PlayCircle className="size-8 text-white" />
         </div>
@@ -84,7 +84,7 @@ function InstagramCard({ item }: { item: FeedItem & { type: 'instagram' } }) {
       whileTap={{ scale: 0.98 }}
       whileHover={{ y: -4 }}
     >
-      <Image src={item.imageUrl} alt={item.title} fill className="object-cover group-hover:scale-110 transition-transform duration-300" unoptimized />
+      <Image src={item.imageUrl} alt={item.title} fill sizes="(max-width: 672px) calc(100vw - 2.5rem), 672px" className="object-cover group-hover:scale-110 transition-transform duration-300" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent group-hover:via-black/50 transition-all" />
       <p className="absolute bottom-0 left-0 right-0 p-4 text-white text-sm font-semibold line-clamp-3 leading-relaxed">
         {item.excerpt}
@@ -97,8 +97,8 @@ function InstagramCard({ item }: { item: FeedItem & { type: 'instagram' } }) {
   );
 }
 
-function FeedCard({ item }: { item: FeedItem }) {
-  if (item.type === 'blog') return <BlogCard item={item as FeedItem & { type: 'blog' }} />;
+function FeedCard({ item, priority }: { item: FeedItem; priority?: boolean }) {
+  if (item.type === 'blog') return <BlogCard item={item as FeedItem & { type: 'blog' }} priority={priority} />;
   if (item.type === 'podcast') return <PodcastCard item={item as FeedItem & { type: 'podcast' }} />;
   if (item.type === 'instagram') return <InstagramCard item={item as FeedItem & { type: 'instagram' }} />;
   return null;
@@ -133,11 +133,12 @@ export default function HomePage() {
       {/* Premium Header */}
       <header className="sticky top-0 z-40 h-[calc(4rem+env(safe-area-inset-top))] pt-[env(safe-area-inset-top)] flex items-center justify-between px-5 bg-vf-navy/60 backdrop-blur-2xl border-b border-border/5 shadow-sm">
         <div className="flex flex-row items-center gap-3">
-          <Image 
-            src="/images/ventura/logo-white.png" 
-            alt="Ventura Forward Logo" 
-            width={224} 
-            height={94} 
+          <Image
+            src="/images/ventura/logo-white.png"
+            alt="Ventura Forward Logo"
+            width={224}
+            height={94}
+            priority
             className="object-contain h-8 w-auto mix-blend-plus-lighter opacity-90 drop-shadow-[0_0_12px_rgba(215,235,255,0.4)]"
           />
         </div>
@@ -174,9 +175,8 @@ export default function HomePage() {
           <motion.div
             key={item.id}
             variants={itemVariants}
-            transition={reduced ? undefined : { delay: index === 0 ? 0 : 0 }}
           >
-            <FeedCard item={item} />
+            <FeedCard item={item} priority={index === 0} />
           </motion.div>
         ))}
       </motion.div>

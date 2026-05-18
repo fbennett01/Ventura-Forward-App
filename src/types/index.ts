@@ -34,7 +34,7 @@ export interface Partner {
   address: string;
   pointsCost: number;
   perk: string;
-  logoUrl: string;
+  logoUrl: string | null;
 }
 
 export type ReportCategory = "trash" | "graffiti" | "pothole" | "abandoned" | "hazard" | "other";
