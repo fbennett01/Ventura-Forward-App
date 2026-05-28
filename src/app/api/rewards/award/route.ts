@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { getRewardsServiceClient } from "@/lib/rewards/supabase";
 import { verifyMemberToken } from "@/lib/rewards/qr";
+import { verifyVendorAccessCode } from "@/lib/rewards/access-code";
+import { clientIp, enforceRateLimit } from "@/lib/rewards/rate-limit";
 
 // Vendor-side endpoint: verify a scanned member token and award points.
 export const dynamic = "force-dynamic";
@@ -30,9 +32,20 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const ip = clientIp(req);
+
+  // Brute-force guard on the access code, keyed by IP alone, before any
+  // comparison so guessing attempts are throttled regardless of vendor.
+  const ipLimited = await enforceRateLimit("award_ip", ip);
+  if (ipLimited) return ipLimited;
+
+  // Per-vendor throttle on legitimate awarding.
+  const limited = await enforceRateLimit("award", `${parsed.data.vendor_id}:${ip}`);
+  if (limited) return limited;
+
   // Beta vendor gate. The production dashboard uses Supabase Auth instead.
-  const expected = process.env.REWARDS_VENDOR_ACCESS_CODE;
-  if (!expected || parsed.data.access_code !== expected) {
+  // Constant-time compare so the code can't be brute-forced via timing.
+  if (!verifyVendorAccessCode(parsed.data.access_code)) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 

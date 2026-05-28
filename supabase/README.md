@@ -42,6 +42,46 @@ You only need the steps below to enable **live mode**.
    demo mode; set `NEXT_PUBLIC_REWARDS_DEMO=true` to force demo even when
    configured.
 
+## Rate limiting
+
+The rewards write endpoints — `POST /api/rewards/token`, `/award`, and
+`/redeem` — are rate limited to throttle abuse (token minting, redemption spam,
+and access-code brute force on the beta scanner). Limiting is **serverless-safe**
+(in-memory counters don't work on Vercel), backed by **Upstash Redis**:
+
+- Set `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` (free tier at
+  <https://console.upstash.com/redis>) to enable it.
+- Leave **both unset** to disable limiting (a no-op limiter), which keeps
+  demo/dev working with no extra config.
+- Keys: `token`/`redeem` by `device_id` + IP; `award` by `vendor_id` + IP, plus
+  a separate per-IP limiter that guards the access code against brute force.
+  The access-code comparison is constant-time (`crypto.timingSafeEqual`).
+- Over-limit requests get HTTP `429` with `{ "error": "rate_limited" }` and a
+  `Retry-After` header. The limiter **fails open** (allows the request) if Redis
+  is unreachable, so a Redis outage never takes the feature down.
+
+## Go live (production checklist)
+
+To switch Rewards from demo to live on the production Vercel project:
+
+1. In the **rewards** Supabase project's SQL Editor, run
+   [migrations/0002_rewards.sql](./migrations/0002_rewards.sql) and
+   [migrations/0004_rewards_analytics.sql](./migrations/0004_rewards_analytics.sql)
+   (and optionally
+   [migrations/0003_rewards_seed_vendors.sql](./migrations/0003_rewards_seed_vendors.sql)
+   to seed the partner list). All are additive and safe to re-run.
+2. On the **live** Vercel project, set:
+   - `NEXT_PUBLIC_REWARDS_SUPABASE_URL`
+   - `NEXT_PUBLIC_REWARDS_SUPABASE_ANON_KEY`
+   - `REWARDS_SUPABASE_SERVICE_ROLE_KEY`
+   - `REWARDS_QR_SECRET`
+   - `REWARDS_VENDOR_ACCESS_CODE` (for the beta `/vendor/scan` tool)
+   - optionally `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` (rate
+     limiting — see above; strongly recommended in production)
+3. On the **demo** Vercel project, leave `NEXT_PUBLIC_REWARDS_SUPABASE_URL`
+   **unset** to keep demo mode (localStorage points, no DB writes). Setting
+   `NEXT_PUBLIC_REWARDS_DEMO=true` also forces demo even when configured.
+
 See [REWARDS_DASHBOARD.md](./REWARDS_DASHBOARD.md) for the separate dashboard
 repo's integration contract (tables, `vf_*` functions, analytics, QR token
 format).

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { getRewardsServiceClient } from "@/lib/rewards/supabase";
+import { clientIp, enforceRateLimit } from "@/lib/rewards/rate-limit";
 
 // Member-side redemption: spend points on a catalog perk, return a code the
 // vendor honors. Double-spend is prevented inside vf_rewards_redeem.
@@ -27,6 +28,12 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     );
   }
+
+  const limited = await enforceRateLimit(
+    "redeem",
+    `${parsed.data.device_id}:${clientIp(req)}`
+  );
+  if (limited) return limited;
 
   const supabase = getRewardsServiceClient();
 

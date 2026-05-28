@@ -3,6 +3,7 @@ import { z } from "zod";
 import { getRewardsServiceClient } from "@/lib/rewards/supabase";
 import { getOrCreateMember } from "@/lib/rewards/members";
 import { signMemberToken } from "@/lib/rewards/qr";
+import { clientIp, enforceRateLimit } from "@/lib/rewards/rate-limit";
 
 // Issues a short-lived signed token for the member to display as a QR code.
 export const dynamic = "force-dynamic";
@@ -27,6 +28,12 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     );
   }
+
+  const limited = await enforceRateLimit(
+    "token",
+    `${parsed.data.device_id}:${clientIp(req)}`
+  );
+  if (limited) return limited;
 
   const supabase = getRewardsServiceClient();
   const result = await getOrCreateMember(supabase, parsed.data.device_id);
