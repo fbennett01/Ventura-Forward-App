@@ -35,6 +35,8 @@ export interface Partner {
   pointsCost: number;
   perk: string;
   logoUrl: string | null;
+  // Catalog item backing the perk (live mode only; absent for demo/mock data).
+  catalogItemId?: string;
 }
 
 export type ReportCategory = "trash" | "graffiti" | "pothole" | "abandoned" | "hazard" | "other";
