@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { useRewards } from '@/lib/rewards/use-rewards'
 import { MemberQr } from '@/components/rewards/member-qr'
 import { RedeemSheet } from '@/components/rewards/redeem-sheet'
+import { JoinRewards } from '@/components/rewards/join-rewards'
 import type { Partner } from '@/types'
 
 function relativeTime(iso: string): string {
@@ -60,7 +61,7 @@ export default function RewardsPage() {
   const [scanOpen, setScanOpen] = useState(false)
   const [redeemPartner, setRedeemPartner] = useState<Partner | null>(null)
   const prefersReduced = useReducedMotion()
-  const { balance, partners, activity, loading, demo, simulateVisit, redeem } = useRewards()
+  const { balance, partners, activity, loading, demo, signedUp, signUp, simulateVisit, redeem } = useRewards()
   const featured = partners.slice(0, 4)
 
   const handlePartnerTap = (partner: Partner) => setRedeemPartner(partner)
@@ -106,6 +107,10 @@ export default function RewardsPage() {
         <Leaf className="size-4 text-vf-accent drop-shadow-[0_0_12px_rgba(215,235,255,0.4)]" />
       </header>
 
+      {!demo && !signedUp ? (
+        <JoinRewards onJoin={signUp} />
+      ) : (
+      <>
       {/* Balance hero card */}
       <motion.div
         className="mx-5 mt-5 rounded-3xl p-6 relative overflow-hidden bg-vf-navy-100/50 backdrop-blur-xl border border-white/5 shadow-vf-medium hover:shadow-vf-premium transition-all duration-300"
@@ -327,6 +332,8 @@ export default function RewardsPage() {
           if (!open) setRedeemPartner(null)
         }}
       />
+      </>
+      )}
     </div>
   )
 }

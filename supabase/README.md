@@ -16,8 +16,14 @@ This app uses **two separate Supabase projects**: one for **Reports**
 ## Rewards project
 
 > ⚠️ The Rewards project is a **SHARED live Overlook agency DB**. Only touch
-> `rewards_*` tables and `vf_*` functions. The migrations below are additive
-> and safe to re-run.
+> `rewards_*` tables and `vf_*` functions.
+>
+> ⚠️ **The live schema has diverged from these migrations** (the dashboard repo
+> owns it now — see [REWARDS_DASHBOARD.md](./REWARDS_DASHBOARD.md)). The
+> migration files below are **historical**; do **not** re-apply `0002` to the
+> live project — its `create or replace function` statements would overwrite the
+> live `vf_rewards_*` functions with stale, broken bodies. They remain only as a
+> record of the original Phase-1 design.
 
 Rewards runs in **demo mode by default** (localStorage points, no DB writes).
 You only need the steps below to enable **live mode**.

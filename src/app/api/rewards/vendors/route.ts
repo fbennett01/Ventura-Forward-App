@@ -11,9 +11,9 @@ export async function GET() {
 
   const { data: vendors, error: vErr } = await supabase
     .from("rewards_vendors")
-    .select("id, name, category, address, logo_url")
-    .eq("active", true)
-    .order("name");
+    .select("id, business_name, address, logo_url, status")
+    .eq("status", "active")
+    .order("business_name");
 
   if (vErr) {
     return NextResponse.json({ error: vErr.message }, { status: 500 });
@@ -21,8 +21,8 @@ export async function GET() {
 
   const { data: items, error: cErr } = await supabase
     .from("rewards_catalog")
-    .select("id, vendor_id, title, points_cost")
-    .eq("active", true)
+    .select("id, vendor_id, title, points_cost, is_active")
+    .eq("is_active", true)
     .order("points_cost", { ascending: true });
 
   if (cErr) {
@@ -42,8 +42,7 @@ export async function GET() {
     const item = firstItem.get(v.id);
     return {
       id: v.id,
-      name: v.name,
-      category: v.category,
+      name: v.business_name,
       address: v.address ?? "",
       pointsCost: item?.points_cost ?? 0,
       perk: item?.title ?? "",

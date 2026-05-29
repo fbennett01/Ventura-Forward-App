@@ -1,20 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { getRewardsServiceClient } from "@/lib/rewards/supabase";
-import { resolveMemberByToken } from "@/lib/rewards/members";
-import { signMemberToken } from "@/lib/rewards/qr";
+import { createMember } from "@/lib/rewards/members";
 import { clientIp, enforceRateLimit } from "@/lib/rewards/rate-limit";
 
-// Issues a short-lived signed token for the member to display as a QR code.
+// Public member enrollment: name + email → a wallet token the device stores.
 export const dynamic = "force-dynamic";
 
 const bodySchema = z.object({
-  member_token: z.string().uuid(),
+  name: z.string().min(1).max(120),
+  email: z.string().email().max(200),
+  phone: z.string().max(40).optional(),
 });
 
 export async function POST(req: NextRequest) {
   let body: unknown;
-
   try {
     body = await req.json();
   } catch {
@@ -29,18 +29,16 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const limited = await enforceRateLimit(
-    "token",
-    `${parsed.data.member_token}:${clientIp(req)}`
-  );
+  // Throttle enrollment per IP (shares the token budget bucket).
+  const limited = await enforceRateLimit("token", `signup:${clientIp(req)}`);
   if (limited) return limited;
 
   const supabase = getRewardsServiceClient();
-  const member = await resolveMemberByToken(supabase, parsed.data.member_token);
-  if (!member) {
-    return NextResponse.json({ error: "member_not_found" }, { status: 404 });
+  const result = await createMember(supabase, parsed.data);
+  if ("error" in result) {
+    const badInput = result.error === "invalid_email" || result.error === "name_required";
+    return NextResponse.json({ error: result.error }, { status: badInput ? 400 : 500 });
   }
 
-  const { token, expiresAt } = signMemberToken(member.id);
-  return NextResponse.json({ token, expiresAt });
+  return NextResponse.json({ member_token: result.member_token });
 }

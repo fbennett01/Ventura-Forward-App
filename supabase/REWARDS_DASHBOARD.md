@@ -1,5 +1,19 @@
 # Ventura Rewards — dashboard integration contract
 
+> ⚠️ **SUPERSEDED — this describes the original Phase-1 schema, which the live
+> shared DB (`qpejcptvicvhlidcznkz`) has since outgrown.** The dashboard repo
+> now owns the live schema. Code against the LIVE tables/functions, not the
+> shapes below. Live differences:
+> - `rewards_members`: named/email sign-ups keyed by **`member_token`** (UUID); **no `device_id`**; `name` + `email` are NOT NULL.
+> - `rewards_vendors`: **`business_name`**, **`status`** (active/paused/ended), **`vendor_token`**; **no `name`/`active`/`category`**.
+> - `rewards_transactions`: **`kind`** (text), **`catalog_id`**, **`amount_cents`**, **`note`**, **`jti`** (QR nonce); **no `type`/`qr_nonce`/`catalog_item_id`**.
+> - `rewards_catalog`: **`is_active`** (not `active`).
+> - `vf_rewards_*` functions exist and were rewritten to the live schema, so the
+>   RPC names/args below still hold; **balances are summed from `points`**, not
+>   read from `points_balance`.
+>
+> The app's typed view of the live schema is `src/types/rewards-supabase.ts`.
+
 The Ventura Forward **dashboard lives in a separate repo** but shares this
 Supabase project. This is the contract it codes against.
 

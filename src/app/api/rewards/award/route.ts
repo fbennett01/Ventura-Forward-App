@@ -61,9 +61,9 @@ export async function POST(req: NextRequest) {
 
   const { data: vendor, error: vErr } = await supabase
     .from("rewards_vendors")
-    .select("id, name")
+    .select("id, business_name")
     .eq("id", parsed.data.vendor_id)
-    .eq("active", true)
+    .eq("status", "active")
     .maybeSingle();
 
   if (vErr) return NextResponse.json({ error: vErr.message }, { status: 500 });
@@ -88,5 +88,5 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: msg }, { status: 500 });
   }
 
-  return NextResponse.json({ balance, vendor: vendor.name, points: parsed.data.points });
+  return NextResponse.json({ balance, vendor: vendor.business_name, points: parsed.data.points });
 }

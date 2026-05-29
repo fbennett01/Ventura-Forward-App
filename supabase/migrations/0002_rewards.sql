@@ -1,12 +1,20 @@
--- Ventura Rewards — schema (Phase 1)
+-- Ventura Rewards — schema (Phase 1) — ⚠️ HISTORICAL / SUPERSEDED. DO NOT RE-RUN.
+--
+-- ⚠️⚠️  The LIVE shared schema (ref qpejcptvicvhlidcznkz) has since diverged from
+--       this file — it is now owned/evolved by the separate dashboard repo.
+--       Live differences: members use `member_token` (no `device_id`); vendors
+--       use `business_name`/`status`/`vendor_token` (no `name`/`active`/
+--       `category`); transactions use `kind`/`catalog_id`/`jti` (no `type`/
+--       `qr_nonce`/`catalog_item_id`). The live `vf_*` functions were rewritten
+--       to that schema.
+--       RE-RUNNING THIS FILE WOULD `create or replace` the live `vf_rewards_*`
+--       functions with these STALE bodies and BREAK them. Do not apply it to the
+--       live project. Kept only as historical reference.
 --
 -- ⚠️  This migration runs against the SHARED live Overlook agency Supabase
 --     project (ref qpejcptvicvhlidcznkz). It is ADDITIVE ONLY and touches
 --     exclusively `rewards_*` tables and `vf_*` functions. Do NOT alter,
 --     drop, or reference any non-rewards table here.
---
--- Safe to re-run: every object is guarded with `if not exists` /
--- `create or replace`.
 --
 -- Access model:
 --   * All `rewards_*` tables have RLS enabled with NO policies, so only the

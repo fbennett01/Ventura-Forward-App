@@ -13,8 +13,19 @@ export interface RewardsActivity {
 export interface RewardsMeResponse {
   balance: number;
   activity: RewardsActivity[];
+  /** Member display name (live mode only). */
+  name?: string;
 }
 
 export interface RewardsVendorsResponse {
   partners: Partner[];
 }
+
+// Live-mode member enrollment.
+export interface SignUpInput {
+  name: string;
+  email: string;
+  phone?: string;
+}
+
+export type SignUpResult = { ok: true } | { ok: false; error: string };

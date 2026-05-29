@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import QRCode from "qrcode";
 import { RefreshCw } from "lucide-react";
-import { getDeviceId } from "@/lib/device-id";
+import { getMemberToken } from "@/lib/rewards/identity";
 import { Button } from "@/components/ui/button";
 
 // Renders the member's signed token as a QR code for a vendor to scan.
@@ -18,11 +18,15 @@ export function MemberQr() {
     setLoading(true);
     setError(null);
     try {
-      const deviceId = getDeviceId();
+      const memberToken = getMemberToken();
+      if (!memberToken) {
+        setError("Join Ventura Rewards to get your code.");
+        return;
+      }
       const res = await fetch("/api/rewards/token", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ device_id: deviceId }),
+        body: JSON.stringify({ member_token: memberToken }),
       });
       if (!res.ok) {
         setError("Couldn't generate your code. Try again.");
