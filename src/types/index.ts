@@ -30,11 +30,14 @@ export interface Meeting {
 export interface Partner {
   id: string;
   name: string;
-  category: "food" | "fitness" | "lodging" | "cafe";
+  // Optional: present on demo/mock data; the live vendor schema has no category.
+  category?: "food" | "fitness" | "lodging" | "cafe";
   address: string;
   pointsCost: number;
   perk: string;
   logoUrl: string | null;
+  // Catalog item backing the perk (live mode only; absent for demo/mock data).
+  catalogItemId?: string;
 }
 
 export type ReportCategory = "trash" | "graffiti" | "pothole" | "abandoned" | "hazard" | "other";

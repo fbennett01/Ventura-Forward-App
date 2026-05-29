@@ -10,6 +10,10 @@ const withPWA = withPWAInit({
 				urlPattern: /\/api\/reports$/i,
 				handler: "NetworkOnly",
 			},
+			{
+				urlPattern: /\/api\/rewards\//i,
+				handler: "NetworkOnly",
+			},
 		],
 	},
 });

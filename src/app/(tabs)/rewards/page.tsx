@@ -4,11 +4,22 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Leaf, QrCode, MapPin, Check, Plus, Gift } from 'lucide-react'
-import { mockPartners } from '@/data/mock-partners'
 import { Sheet, SheetContent } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
+import { useRewards } from '@/lib/rewards/use-rewards'
+import { MemberQr } from '@/components/rewards/member-qr'
+import { RedeemSheet } from '@/components/rewards/redeem-sheet'
+import { JoinRewards } from '@/components/rewards/join-rewards'
+import type { Partner } from '@/types'
 
-const BALANCE = 47
+function relativeTime(iso: string): string {
+  const diff = Date.now() - new Date(iso).getTime()
+  const day = 86_400_000
+  if (diff < day) return 'today'
+  const days = Math.floor(diff / day)
+  if (days < 7) return `${days}d ago`
+  return `${Math.floor(days / 7)}w ago`
+}
 
 function ProgressRing({ value, max }: { value: number; max: number }) {
   const size = 48
@@ -48,8 +59,12 @@ function ProgressRing({ value, max }: { value: number; max: number }) {
 
 export default function RewardsPage() {
   const [scanOpen, setScanOpen] = useState(false)
+  const [redeemPartner, setRedeemPartner] = useState<Partner | null>(null)
   const prefersReduced = useReducedMotion()
-  const featured = mockPartners.slice(0, 4)
+  const { balance, partners, activity, loading, demo, signedUp, signUp, simulateVisit, redeem } = useRewards()
+  const featured = partners.slice(0, 4)
+
+  const handlePartnerTap = (partner: Partner) => setRedeemPartner(partner)
   const listVariants = prefersReduced
     ? undefined
     : {
@@ -92,6 +107,10 @@ export default function RewardsPage() {
         <Leaf className="size-4 text-vf-accent drop-shadow-[0_0_12px_rgba(215,235,255,0.4)]" />
       </header>
 
+      {!demo && !signedUp ? (
+        <JoinRewards onJoin={signUp} />
+      ) : (
+      <>
       {/* Balance hero card */}
       <motion.div
         className="mx-5 mt-5 rounded-3xl p-6 relative overflow-hidden bg-vf-navy-100/50 backdrop-blur-xl border border-white/5 shadow-vf-medium hover:shadow-vf-premium transition-all duration-300"
@@ -113,7 +132,7 @@ export default function RewardsPage() {
             Forward Points
           </p>
           <p className="font-display font-extrabold text-6xl text-white leading-none mt-1">
-            {BALANCE}
+            {balance}
           </p>
         </div>
 
@@ -132,17 +151,35 @@ export default function RewardsPage() {
         <SheetContent side="bottom" className="bg-vf-navy border-t border-white/10 rounded-t-3xl pb-10">
           <div className="flex flex-col items-center gap-4 pt-2">
             <div className="w-12 h-1 rounded-full bg-white/20" />
-            <QrCode className="size-16 text-vf-accent" />
-            <h3 className="font-display font-bold text-xl text-vf-sand">Scanner&apos;s cooking.</h3>
-            <p className="text-vf-sand/60 text-sm text-center px-6 leading-relaxed">
-              For now, tap any partner below to simulate earning points.
-            </p>
-            <Button
-              onClick={() => setScanOpen(false)}
-              className="btn-ripple relative vf-gradient text-vf-navy font-bold rounded-full px-8 mt-2 active:scale-95 transition-all shadow-md hover:shadow-lg shadow-vf-accent/30"
-            >
-              Got it
-            </Button>
+            {demo ? (
+              <>
+                <QrCode className="size-16 text-vf-accent" />
+                <h3 className="font-display font-bold text-xl text-vf-sand">Demo mode</h3>
+                <p className="text-vf-sand/60 text-sm text-center px-6 leading-relaxed">
+                  Live scanning is off in the demo. Simulate a partner visit to earn points.
+                </p>
+                <Button
+                  onClick={() => simulateVisit?.()}
+                  className="btn-ripple relative vf-gradient text-vf-navy font-bold rounded-full px-8 mt-2 active:scale-95 transition-all shadow-md hover:shadow-lg shadow-vf-accent/30"
+                >
+                  Simulate a visit (+5)
+                </Button>
+              </>
+            ) : (
+              <>
+                <h3 className="font-display font-bold text-xl text-vf-sand">Scan to Earn</h3>
+                <p className="text-vf-sand/60 text-sm text-center px-6 leading-relaxed">
+                  Show this code to a partner to collect your Forward Points.
+                </p>
+                <MemberQr />
+                <Button
+                  onClick={() => setScanOpen(false)}
+                  className="btn-ripple relative bg-white/10 text-vf-sand font-bold rounded-full px-8 mt-1 active:scale-95 transition-all"
+                >
+                  Done
+                </Button>
+              </>
+            )}
           </div>
         </SheetContent>
       </Sheet>
@@ -160,9 +197,10 @@ export default function RewardsPage() {
         {featured.map((partner) => (
           <motion.div
             key={partner.id}
-            className="flex-shrink-0 w-36 rounded-2xl bg-vf-navy-100 border border-white/5 p-3"
+            className="flex-shrink-0 w-36 rounded-2xl bg-vf-navy-100 border border-white/5 p-3 cursor-pointer"
             variants={itemVariants}
             whileTap={prefersReduced ? undefined : { scale: 0.985 }}
+            onClick={() => handlePartnerTap(partner)}
           >
             <div className="w-full aspect-[2/1] rounded-xl bg-vf-navy border border-white/10 flex items-center justify-center mb-2 overflow-hidden relative px-2 shadow-vf-soft">
               {partner.logoUrl ? (
@@ -202,12 +240,13 @@ export default function RewardsPage() {
         initial={prefersReduced ? false : 'hidden'}
         animate={prefersReduced ? undefined : 'show'}
       >
-        {mockPartners.map((partner) => (
+        {partners.map((partner) => (
           <motion.div
             key={partner.id}
-            className="rounded-2xl bg-vf-navy-100 border border-white/5 p-3 flex gap-3 items-center"
+            className="rounded-2xl bg-vf-navy-100 border border-white/5 p-3 flex gap-3 items-center cursor-pointer"
             variants={itemVariants}
             whileTap={prefersReduced ? undefined : { scale: 0.99 }}
+            onClick={() => handlePartnerTap(partner)}
           >
             <div className="w-24 aspect-[2/1] rounded-xl bg-vf-navy border border-white/10 flex items-center justify-center flex-shrink-0 overflow-hidden relative px-2 shadow-vf-soft">
               {partner.logoUrl ? (
@@ -233,7 +272,7 @@ export default function RewardsPage() {
               </div>
               <p className="text-sm text-vf-sand/70 line-clamp-1 mt-0.5">{partner.perk}</p>
             </div>
-            <ProgressRing value={BALANCE} max={partner.pointsCost} />
+            <ProgressRing value={balance} max={partner.pointsCost} />
           </motion.div>
         ))}
       </motion.div>
@@ -248,28 +287,53 @@ export default function RewardsPage() {
         initial={prefersReduced ? false : 'hidden'}
         animate={prefersReduced ? undefined : 'show'}
       >
-        <motion.div className="flex items-center gap-3 rounded-xl bg-vf-navy-100 border border-white/5 px-4 py-3" variants={itemVariants}>
-          <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-vf-accent/15">
-            <Plus className="size-4 text-vf-accent" />
-          </div>
-          <span className="flex-1 text-sm text-vf-sand font-medium">+5 pts at Cafe Zack</span>
-          <span className="text-xs text-vf-sand/40">2d ago</span>
-        </motion.div>
-        <motion.div className="flex items-center gap-3 rounded-xl bg-vf-navy-100 border border-white/5 px-4 py-3" variants={itemVariants}>
-          <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-vf-accent/15">
-            <Plus className="size-4 text-vf-accent" />
-          </div>
-          <span className="flex-1 text-sm text-vf-sand font-medium">+3 pts at Pizza Chief</span>
-          <span className="text-xs text-vf-sand/40">5d ago</span>
-        </motion.div>
-        <motion.div className="flex items-center gap-3 rounded-xl bg-vf-navy-100 border border-white/5 px-4 py-3" variants={itemVariants}>
-          <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-vf-sea/15">
-            <Gift className="size-4 text-vf-sea" />
-          </div>
-          <span className="flex-1 text-sm text-vf-sand font-medium">Free coffee at Pete&apos;s</span>
-          <span className="text-xs text-vf-sand/40">1w ago</span>
-        </motion.div>
+        {!loading && activity.length === 0 ? (
+          <motion.div
+            className="flex items-center justify-center rounded-xl bg-vf-navy-100 border border-white/5 px-4 py-6"
+            variants={itemVariants}
+          >
+            <span className="text-sm text-vf-sand/40 text-center">
+              No activity yet — scan to earn your first points.
+            </span>
+          </motion.div>
+        ) : (
+          activity.map((item) => {
+            const isEarn = item.points > 0
+            return (
+              <motion.div
+                key={item.id}
+                className="flex items-center gap-3 rounded-xl bg-vf-navy-100 border border-white/5 px-4 py-3"
+                variants={itemVariants}
+              >
+                <div
+                  className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                    isEarn ? 'bg-vf-accent/15' : 'bg-vf-sea/15'
+                  }`}
+                >
+                  {isEarn ? (
+                    <Plus className="size-4 text-vf-accent" />
+                  ) : (
+                    <Gift className="size-4 text-vf-sea" />
+                  )}
+                </div>
+                <span className="flex-1 text-sm text-vf-sand font-medium">{item.label}</span>
+                <span className="text-xs text-vf-sand/40">{relativeTime(item.createdAt)}</span>
+              </motion.div>
+            )
+          })
+        )}
       </motion.div>
+
+      <RedeemSheet
+        partner={redeemPartner}
+        balance={balance}
+        redeem={redeem}
+        onOpenChange={(open) => {
+          if (!open) setRedeemPartner(null)
+        }}
+      />
+      </>
+      )}
     </div>
   )
 }
